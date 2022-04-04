@@ -1,0 +1,62 @@
+@import "../../../scss/index.scss";
+
+.right-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+
+  i.icon {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 19px;
+    color: $font-dark;
+  }
+
+  .tooltiptext {
+    position: absolute;
+    font-size: small;
+    visibility: hidden;
+    width: 50px;
+    background-color: #071108;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+    text-align: center;
+    border-radius: 6px;
+    padding: 3px 0;
+    z-index: 1;
+    margin-top: -30px;
+    margin-left: -20px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .ui.image.avatar {
+    width: 25px;
+    height: 25px;
+    // border: 1px solid #f2711c;
+    padding: 2px;
+  }
+
+  i.icon,
+  .ui.image.avatar {
+    margin: 0 0 0 19px;
+    color: #e7dfe8;
+    &:hover .tooltiptext {
+      visibility: visible;
+      opacity: 0.8;
+      cursor: pointer;
+    }
+  }
+
+  .link-avatar:hover .tooltiptext {
+    visibility: visible;
+    opacity: 0.8;
+    cursor: pointer;
+    margin-top: -15px;
+    margin-left: -40px;
+  }
+}

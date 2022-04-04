@@ -1,0 +1,30 @@
+@import "../../../../scss/index.scss";
+
+.comments-feed {
+  height: 50px;
+  overflow-y: auto !important;
+  margin-top: 10px;
+
+  .comment {
+    display: flex;
+    align-items: center;
+    color: #39304a;
+    margin-left: 10px;
+
+    img {
+      margin-right: 15px !important;
+    }
+
+    p {
+      margin: 0;
+
+      &:first-of-type {
+        font-weight: bold;
+      }
+      span {
+        font-weight: 300;
+        color: black;
+      }
+    }
+  }
+}

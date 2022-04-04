@@ -1,0 +1,90 @@
+@import "../../../scss/index.scss";
+
+.side-menu {
+  margin-top: 70px;
+  padding-left: 10px;
+  display: inline-grid;
+
+  &__emergency {
+    margin-bottom: 20px;
+    display: inline-flex;
+    cursor: pointer;
+
+    i.icon {
+      color: $danger;
+      font-size: 36px;
+    }
+    p {
+      font-weight: bold;
+      margin-top: 5px;
+    }
+  }
+
+  &__appointments {
+    margin-bottom: 20px;
+
+    display: inline-flex;
+    cursor: pointer;
+
+    i.icon {
+      color: $action;
+      font-size: 36px;
+    }
+    p {
+      font-weight: bold;
+    }
+  }
+  &__tasks {
+    margin-bottom: 20px;
+
+    display: inline-flex;
+    cursor: pointer;
+
+    i.icon {
+      color: green;
+      font-size: 36px;
+    }
+    p {
+      font-weight: bold;
+    }
+  }
+
+  &__achievements {
+    margin-bottom: 20px;
+
+    display: inline-flex;
+    cursor: pointer;
+
+    i.icon {
+      color: gold;
+      font-size: 36px;
+    }
+    p {
+      font-weight: bold;
+    }
+  }
+
+  &__advice {
+    margin-bottom: 20px;
+    background-color: #39304a;
+    padding: 10px;
+
+    color: white;
+    i.icon {
+      align-items: center;
+      color: white;
+      font-size: 36px;
+    }
+    h2 {
+      margin: 0;
+      margin-bottom: 10px;
+    }
+
+    &__icon {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 10px;
+    }
+  }
+}

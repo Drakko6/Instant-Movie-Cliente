@@ -1,0 +1,35 @@
+@import "../../../scss/index.scss";
+
+.phone-form {
+  margin: 20px;
+
+  .input-container {
+    margin-bottom: 1em;
+  }
+  .btn-container {
+    display: flex;
+  }
+
+  .btn-phones-submit {
+    margin: 1em !important;
+    background-color: $action !important;
+    color: $font-light !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .input-phone {
+    line-height: 2.15;
+    margin-right: 1em;
+  }
+  .btn-add-phone {
+    margin: 1em !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .btn-plus {
+    background-color: $action !important;
+    color: $font-light im !important;
+  }
+}
