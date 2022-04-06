@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { Grid } from "semantic-ui-react";
+import { Dimmer, Grid, Loader } from "semantic-ui-react";
 import "./Explore.scss";
-import { GET_RECOMMENDED_POSTS } from "../../gql/post";
+import { GET_RECOMMENDED_MOVIES } from "../../gql/movie";
 import { useQuery } from "@apollo/client";
-import Posts from "../../components/Posts";
+import Movies from "../../components/Movies";
 
 import { useMediaQuery } from "react-responsive";
 
@@ -18,25 +18,35 @@ export default function Home() {
 
   //QUERY DE POST RECOMENDADOS
   const { data, loading, startPolling, stopPolling } = useQuery(
-    GET_RECOMMENDED_POSTS
+    GET_RECOMMENDED_MOVIES
   );
 
-  useEffect(() => {
-    startPolling(3000);
-    return () => {
-      stopPolling();
-    };
-  }, [startPolling, stopPolling]);
-  if (loading) return null;
+  useEffect(
+    () => {
+      // startPolling(5000);
+      // return () => {
+      //   stopPolling();
+      // };
+    },
+    [
+      // startPolling, stopPolling
+    ]
+  );
+  if (loading)
+    return (
+      <Dimmer active>
+        <Loader size="huge" />
+      </Dimmer>
+    );
   if (data === undefined) return null;
-  const { getRecommendedPosts } = data;
+  const { getRecommendedMovies } = data;
 
   return (
     <>
       {isDesktopOrLaptop && (
         <Grid className="home">
           <Grid.Column className="home__left" width={16}>
-            <Posts getPosts={getRecommendedPosts} recomendations={true} />
+            <Movies getMovies={getRecommendedMovies} recomendations={true} />
           </Grid.Column>
         </Grid>
       )}
@@ -44,7 +54,7 @@ export default function Home() {
       {isTablet && (
         <Grid className="home">
           <Grid.Column className="home__left" width={16}>
-            <Posts getPosts={getRecommendedPosts} recomendations={true} />
+            <Movies getMovies={getRecommendedMovies} recomendations={true} />
           </Grid.Column>
         </Grid>
       )}
@@ -52,7 +62,7 @@ export default function Home() {
       {isMovil && (
         <Grid className="home-movil">
           <Grid.Row>
-            <Posts getPosts={getRecommendedPosts} recomendations={true} />
+            <Movies getMovies={getRecommendedMovies} recomendations={true} />
           </Grid.Row>
         </Grid>
       )}

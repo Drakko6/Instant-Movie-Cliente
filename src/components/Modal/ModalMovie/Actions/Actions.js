@@ -9,7 +9,7 @@ import {
   COUNT_LIKES,
 } from "../../../../gql/like";
 
-export default function Actions({ post }) {
+export default function Actions({ movie }) {
   const [loadingAction, setLoadingAction] = useState(false);
 
   const [deleteLike] = useMutation(DELETE_LIKE);
@@ -20,13 +20,13 @@ export default function Actions({ post }) {
     refetch: refetchCount,
   } = useQuery(COUNT_LIKES, {
     variables: {
-      idPost: post.id,
+      idMovie: movie.id,
     },
   });
 
   const { data, loading, refetch } = useQuery(IS_LIKE, {
     variables: {
-      idPost: post.id,
+      idMovie: movie.id,
     },
   });
 
@@ -37,7 +37,7 @@ export default function Actions({ post }) {
     try {
       await addLike({
         variables: {
-          idPost: post.id,
+          idMovie: movie.id,
         },
       });
 
@@ -54,7 +54,7 @@ export default function Actions({ post }) {
     try {
       await deleteLike({
         variables: {
-          idPost: post.id,
+          idMovie: movie.id,
         },
       });
       refetch();
@@ -67,8 +67,6 @@ export default function Actions({ post }) {
   };
 
   const onAction = () => {
-    // isLike ? onDeleteLike : onAddLike
-
     if (!loadingAction) {
       if (isLike) {
         onDeleteLike();
@@ -84,27 +82,14 @@ export default function Actions({ post }) {
 
   return (
     <div className="actions">
-      {/* <Icon
-        className={isLike ? "like active" : "like"}
-        name={isLike ? "heart" : "heart outline"}
-        onClick={onAction}
-      /> */}
-      {isLike ? (
-        <Icon
-          name="paw"
-          className="active"
-          // className={isLike ? "like active" : "like"}
-          onClick={onAction}
-        />
-      ) : (
-        <Icon
-          name="paw"
-          className="inactive"
-          // className={isLike ? "like active" : "like"}
-          onClick={onAction}
-        />
-      )}
-      {countLikes} {countLikes === 1 ? "Paw" : "Paws"}
+      <>
+        {isLike ? (
+          <Icon name="heart" className="active" onClick={onAction} />
+        ) : (
+          <Icon name="heart outline" className="inactive" onClick={onAction} />
+        )}
+      </>
+      {countLikes} {countLikes === 1 ? "Like" : "Likes"}
     </div>
   );
 }

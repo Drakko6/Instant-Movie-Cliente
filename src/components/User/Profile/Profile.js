@@ -15,7 +15,7 @@ import { useMediaQuery } from "react-responsive";
 import WhatsAppWidget from "react-whatsapp-widget";
 import "react-whatsapp-widget/dist/index.css";
 
-export default function Profile({ username, totalPosts }) {
+export default function Profile({ username, totalFavorites }) {
   const isMovil = useMediaQuery({ query: "(max-width: 600px)" });
 
   const [showModal, setShowModal] = useState(false);
@@ -64,175 +64,6 @@ export default function Profile({ username, totalPosts }) {
   return (
     <>
       <>
-        {/*
-
-      {getUser.business && (
-        <>
-          {isMovil ? (
-            <Grid className="profile-movil">
-              <Grid.Column width={4} className="profile_left__movil">
-                <Image
-                  src={getUser.avatar ? getUser.avatar : ImageNotFound}
-                  avatar
-                  onClick={() =>
-                    username === auth.username && handleModal("avatar")
-                  }
-                />
-              </Grid.Column>
-              <Grid.Column width={12} className="profile_right__movil">
-                <HeaderProfile
-                  username={username}
-                  auth={auth}
-                  handleModal={handleModal}
-                />
-
-                <div className="other">
-                  <p className="name">{getUser.name}</p>
-
-                  {getUser.description && (
-                    <p className="description">{getUser.description}</p>
-                  )}
-
-                  {getUser.phone.length > 0 && (
-                    <p className="phone">
-                      <span>Teléfonos:</span>{" "}
-                      {getUser.phone.map((phone) => (
-                        <>{phone + ", "}</>
-                      ))}
-                    </p>
-                  )}
-
-                  <p className="address">
-                    <span>Dirección: </span>
-
-                    {getUser.address && <>{getUser.address + ", "}</>}
-                    {getUser.town}
-                    {", " + getUser.state}
-                  </p>
-
-                  {getUser.owner && (
-                    <p className="owner">
-                      <span>Humano:</span>: {getUser.owner}
-                    </p>
-                  )}
-
-                  {getUser.contactEmail && (
-                    <p className="contactEmail">
-                      <span>Correo:</span>: {getUser.contactEmail}
-                    </p>
-                  )}
-
-                  {getUser.schedule.length > 0 && (
-                    <>
-                      <p className="schedule">
-                        <span>Horario:</span>:
-                      </p>
-
-                      {/* Map de días y horas 
-                      {getUser.schedule.map((day) => (
-                        <>
-                          <p className="hour">
-                            <span>{day.day}:</span> {day.hour}
-                          </p>
-                        </>
-                      ))}
-                    </>
-                  )}
-                </div>
-              </Grid.Column>
-              <Followers username={username} totalPosts={totalPosts} />
-            </Grid>
-          ) : (
-            <Grid className="profile">
-              <Grid.Column width={5} className="profile_left">
-                <Image
-                  src={getUser.avatar ? getUser.avatar : ImageNotFound}
-                  avatar
-                  onClick={() =>
-                    username === auth.username && handleModal("avatar")
-                  }
-                />
-              </Grid.Column>
-              <Grid.Column width={11} className="profile_right">
-                <HeaderProfile
-                  username={username}
-                  auth={auth}
-                  handleModal={handleModal}
-                />
-                <Followers username={username} totalPosts={totalPosts} />
-                <div className="other">
-                  <p className="name">{getUser.name}</p>
-
-                  {getUser.description && (
-                    <p className="description">{getUser.description}</p>
-                  )}
-
-                  {getUser.phone.length > 0 && (
-                    <p className="phone">
-                      <span>Teléfonos:</span>{" "}
-                      {getUser.phone.map((phone) => (
-                        <>{phone + ", "}</>
-                      ))}
-                    </p>
-                  )}
-
-                  <p className="address">
-                    <span>Dirección: </span>
-
-                    {getUser.address && <>{getUser.address + ", "}</>}
-                    {getUser.town}
-                    {", " + getUser.state}
-                  </p>
-
-                  {getUser.owner && (
-                    <p className="owner">
-                      <span>Humano:</span>: {getUser.owner}
-                    </p>
-                  )}
-
-                  {getUser.contactEmail && (
-                    <p className="contactEmail">
-                      <span>Correo:</span>: {getUser.contactEmail}
-                    </p>
-                  )}
-
-                  {getUser.schedule.length > 0 && (
-                    <>
-                      <p className="schedule">
-                        <span>Horario:</span>:
-                      </p>
-
-                     
-                      {getUser.schedule.map((day) => (
-                        <>
-                          <p className="hour">
-                            <span>{day.day}:</span> {day.hour}
-                          </p>
-                        </>
-                      ))}
-                    </>
-                  )}
-                </div>
-              </Grid.Column>
-            </Grid>
-          )}
-
-          <WhatsAppWidget
-            phoneNumber={"+52" + getUser.phone[0]}
-            companyName={getUser.name}
-            textReplyTime=""
-            sendButton="Enviar"
-            message="'¡Hola! 👋🏼 ¿Qué puedo hacer por ti?'"
-            placeholder="Escribe tu mensaje"
-          />
-        </>
-      )}
-      
-      
-   */}
-      </>
-
-      <>
         {isMovil ? (
           <Grid className="profile-movil">
             <Grid.Column width={4} className="profile_left__movil">
@@ -253,34 +84,13 @@ export default function Profile({ username, totalPosts }) {
 
               <div className="other">
                 <p className="name">{getUser.name}</p>
-                {getUser.breed && (
-                  <p className="breed">
-                    <span>Ocupación:</span> {getUser.breed}
-                  </p>
-                )}
-
-                {getUser.years || getUser.months ? (
-                  <p className="age">
-                    <span>Edad: </span>
-
-                    {getUser.years > 0 && <>{getUser.years} años </>}
-
-                    {getUser.months > 0 && <>{getUser.months} meses</>}
-                  </p>
-                ) : null}
-                {/* 
-                {getUser.owner && (
-                  <p className="owner">
-                    <span>Humano</span>: {getUser.owner}
-                  </p>
-                )} */}
 
                 {getUser.description && (
                   <p className="description">{getUser.description}</p>
                 )}
               </div>
             </Grid.Column>
-            <Followers username={username} totalPosts={totalPosts} />
+            <Followers username={username} totalFavorites={totalFavorites} />
           </Grid>
         ) : (
           <Grid className="profile">
@@ -299,30 +109,9 @@ export default function Profile({ username, totalPosts }) {
                 auth={auth}
                 handleModal={handleModal}
               />
-              <Followers username={username} totalPosts={totalPosts} />
+              <Followers username={username} totalFavorites={totalFavorites} />
               <div className="other">
                 <p className="name">{getUser.name}</p>
-                {getUser.breed && (
-                  <p className="breed">
-                    <span>Ocupación:</span> {getUser.breed}
-                  </p>
-                )}
-
-                {getUser.years || getUser.months ? (
-                  <p className="age">
-                    <span>Edad: </span>
-
-                    {getUser.years > 0 && <>{getUser.years} años </>}
-
-                    {getUser.months > 0 && <>{getUser.months} meses</>}
-                  </p>
-                ) : null}
-
-                {/* {getUser.owner && (
-                  <p className="owner">
-                    <span>Humano</span>: {getUser.owner}
-                  </p>
-                )} */}
 
                 {getUser.description && (
                   <p className="description">{getUser.description}</p>

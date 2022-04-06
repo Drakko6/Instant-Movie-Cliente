@@ -4,14 +4,11 @@ import { map } from "lodash";
 import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { Image } from "semantic-ui-react";
-import {
-  GET_POSTS_FOLLOWEDS,
-  GET_RECOMMENDED_POSTS_FROM_BUSINESS,
-} from "../../../gql/post";
+import { GET_POSTS_FOLLOWEDS } from "../../../gql/post";
 import ImageNotFound from "../../../assets/png/avatar.png";
-import Actions from "../../Modal/ModalPost/Actions";
-import CommentForm from "../../Modal/ModalPost/CommentForm";
-import ModalPost from "../../Modal/ModalPost";
+import Actions from "../../Modal/ModalMovie/Actions";
+import CommentForm from "../../Modal/ModalMovie/CommentForm";
+import ModalMovie from "../../Modal/ModalMovie";
 import CommentsFeed from "../Feed/CommentsFeed";
 export default function FeedTablet() {
   const [showModal, setShowModal] = useState(false);
@@ -21,40 +18,23 @@ export default function FeedTablet() {
   const { data, loading, startPolling, stopPolling } =
     useQuery(GET_POSTS_FOLLOWEDS);
 
-  //QUERY DE RECOMENDADOS
-  const {
-    data: dataRecommended,
-    loading: loadingRecommended,
-    startPolling: startPollingRecommended,
-    stopPolling: stopPollingRecommended,
-  } = useQuery(GET_RECOMMENDED_POSTS_FROM_BUSINESS);
-
-  useEffect(() => {
-    startPolling(3000);
-    startPollingRecommended(3000);
-    return () => {
-      stopPolling();
-      stopPollingRecommended();
-    };
-  }, [
-    startPolling,
-    stopPolling,
-    startPollingRecommended,
-    stopPollingRecommended,
-  ]);
-  if (loading || loadingRecommended) return null;
-  if (data === undefined || dataRecommended === undefined) return null;
+  useEffect(
+    () => {
+      // startPolling(3000);
+      // return () => {
+      //   stopPolling();
+      // };
+    },
+    [
+      // startPolling, stopPolling
+    ]
+  );
+  if (loading) return null;
+  if (data === undefined) return null;
   const { getPostFolloweds } = data;
-  const { getRecommendedPostsFromBusiness } = dataRecommended;
-
-  //mapear el recommended post para agregarle una propiedad "ad"
-  const recommendedTyped = getRecommendedPostsFromBusiness.map((post) => ({
-    ...post,
-    ad: true,
-  }));
 
   //Juntar los posts para poder mostrar todos
-  const allPosts = getPostFolloweds.concat(recommendedTyped);
+  const allPosts = getPostFolloweds;
 
   // Hacer aleatorio el orden de los posts
   allPosts.sort(function () {
@@ -104,22 +84,22 @@ export default function FeedTablet() {
                 {post.text}
               </div>
             ) : null}
-            <CommentsFeed post={post} />
+            <CommentsFeed movie={post} />
 
             <div className="feedTablet__box-actions">
-              <Actions post={post} />
+              <Actions movie={post} />
             </div>
             <div className="feedTablet__box-form">
-              <CommentForm post={post} />
+              <CommentForm movie={post} />
             </div>
           </div>
         ))}
       </div>
       {showModal && (
-        <ModalPost
+        <ModalMovie
           show={showModal}
           setShow={setShowModal}
-          post={postSelected}
+          movie={postSelected}
         />
       )}
     </>

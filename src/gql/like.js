@@ -1,25 +1,25 @@
 import { gql } from "@apollo/client";
 
 export const ADD_LIKE = gql`
-  mutation addLike($idPost: ID!) {
-    addLike(idPost: $idPost)
+  mutation addLike($idMovie: ID!) {
+    addLike(idMovie: $idMovie)
   }
 `;
 
 export const IS_LIKE = gql`
-  query isLike($idPost: ID!) {
-    isLike(idPost: $idPost)
+  query isLike($idMovie: ID!) {
+    isLike(idMovie: $idMovie)
   }
 `;
 
 export const DELETE_LIKE = gql`
-  mutation deleteLike($idPost: ID!) {
-    deleteLike(idPost: $idPost)
+  mutation deleteLike($idMovie: ID!) {
+    deleteLike(idMovie: $idMovie)
   }
 `;
 
 export const COUNT_LIKES = gql`
-  query countLikes($idPost: ID!) {
-    countLikes(idPost: $idPost)
+  query countLikes($idMovie: ID!) {
+    countLikes(idMovie: $idMovie)
   }
 `;

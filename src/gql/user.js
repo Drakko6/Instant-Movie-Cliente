@@ -10,8 +10,6 @@ export const REGISTER = gql`
       password
       state
       town
-      business
-      type
     }
   }
 `;
@@ -31,24 +29,11 @@ export const GET_USER = gql`
       name
       username
       email
-      breed
-      years
-      months
-      owner
       description
       avatar
       town
       state
       preferences
-      business
-      address
-      type
-      phone
-      contactEmail
-      schedule {
-        day
-        hour
-      }
     }
   }
 `;

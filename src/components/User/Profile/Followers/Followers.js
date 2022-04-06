@@ -6,7 +6,7 @@ import "./Followers.scss";
 import ModalBasic from "../../../Modal/ModalBasic";
 import ListUsers from "../../ListUsers";
 
-export default function Followers({ username, totalPosts }) {
+export default function Followers({ username, totalFavorites }) {
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
   const [childrenModal, setChildrenModal] = useState(null);
@@ -23,7 +23,7 @@ export default function Followers({ username, totalPosts }) {
   });
 
   const openFolloweds = () => {
-    setTitleModal("Lomeetos seguidos");
+    setTitleModal("Usuarios seguidos");
     setShowModal(true);
     setChildrenModal(
       <ListUsers users={getFolloweds} setShowModal={setShowModal} />
@@ -48,19 +48,22 @@ export default function Followers({ username, totalPosts }) {
   });
 
   //PARA REALTIME DE SEGUIDORES
-  useEffect(() => {
-    startPollingFollowers(3000);
-    startPollingFolloweds(3000);
-    return () => {
-      stopPollingFollowers();
-      stopPollingFolloweds();
-    };
-  }, [
-    startPollingFollowers,
-    stopPollingFollowers,
-    startPollingFolloweds,
-    stopPollingFolloweds,
-  ]);
+  useEffect(
+    () => {
+      // startPollingFollowers(3000);
+      // startPollingFolloweds(3000);
+      // return () => {
+      //   stopPollingFollowers();
+      //   stopPollingFolloweds();
+      // };
+    },
+    [
+      // startPollingFollowers,
+      // stopPollingFollowers,
+      // startPollingFolloweds,
+      // stopPollingFolloweds,
+    ]
+  );
 
   if (loadingFollowers || loadingFolloweds) return null;
   const { getFollowers } = dataFollowers;
@@ -70,7 +73,7 @@ export default function Followers({ username, totalPosts }) {
     <>
       <div className="followers">
         <p>
-          <span>{totalPosts}</span> publicaciones
+          <span>{totalFavorites}</span> favoritas
         </p>
         <p className="link" onClick={openFollowers}>
           <span>{size(getFollowers)}</span> seguidores

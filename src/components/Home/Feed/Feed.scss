@@ -4,6 +4,7 @@
   padding-top: 50px;
   height: calc(100vh - 48px);
   overflow-y: scroll;
+  color: aliceblue;
 
   &__noposts {
     text-align: center;
@@ -16,11 +17,13 @@
     margin-bottom: 50px;
     margin-left: 10px;
     margin-right: 10px;
+    cursor: pointer;
   }
 
   &__box {
     border: 1px solid $border-grey;
     background-color: white;
+    position: relative;
 
     &-user {
       background-color: $background-light;

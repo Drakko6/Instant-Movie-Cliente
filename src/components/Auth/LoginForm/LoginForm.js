@@ -48,8 +48,8 @@ export default function LoginForm() {
 
       <Form className="login-form" onSubmit={formik.handleSubmit}>
         <h2>
-          Entra a la mejor comunidad de perritos, sube tus fotos y conoce a
-          otros "mejores amigos"
+          Entra a nuestra comunidad de cinéfilos y recibe recomendaciones
+          personalizadas
         </h2>
         <Form.Input
           type="text"

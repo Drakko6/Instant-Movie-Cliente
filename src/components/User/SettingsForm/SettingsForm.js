@@ -64,16 +64,16 @@ export default function SettingsForm({
   //   );
   // };
 
-  const onChangeBreed = () => {
-    setTitleModal("Dinos a qué te dedicas");
-    setChildrenModal(
-      <BreedForm
-        setShowModal={setShowModal}
-        currentBreed={userInfo.breed}
-        refetch={refetch}
-      />
-    );
-  };
+  // const onChangeBreed = () => {
+  //   setTitleModal("Dinos a qué te dedicas");
+  //   setChildrenModal(
+  //     <BreedForm
+  //       setShowModal={setShowModal}
+  //       currentBreed={userInfo.breed}
+  //       refetch={refetch}
+  //     />
+  //   );
+  // };
 
   const onChangeDescription = () => {
     setTitleModal("Actualizar tu descripción");
@@ -137,27 +137,10 @@ export default function SettingsForm({
 
   return (
     <>
-      {userInfo.business && (
-        <div className="settings-form">
-          <Button onClick={onChangePassword}>Cambiar contraseña</Button>
-          <Button onClick={onChangeEmail}>Cambiar correo de usuario</Button>
-          {/* <Button onClick={onChangePhones}>Cambiar horario</Button> */}
-          <Button onClick={onChangeDescription}>Cambiar descripción</Button>
-          <Button onClick={onLogout} className="logout">
-            Cerrar sesión
-          </Button>
-          <Button onClick={onDeleteUser} className="delete">
-            Borrar usuario
-          </Button>
-          <Button onClick={() => setShowModal(false)}>Cancelar</Button>
-        </div>
-      )}
-
       <div className="settings-form">
         <Button onClick={onChangePassword}>Cambiar contraseña</Button>
         <Button onClick={onChangeEmail}>Cambiar correo</Button>
-        <Button onClick={onChangeAge}>Cambiar edad</Button>
-        <Button onClick={onChangeBreed}>Cambiar ocupación</Button>
+        {/* <Button onClick={onChangeAge}>Cambiar edad</Button> */}
         <Button onClick={onChangeDescription}>Cambiar descripción</Button>
         <Button onClick={onLogout} className="logout">
           Cerrar sesión

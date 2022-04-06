@@ -23,12 +23,12 @@ const routes = [
     component: Explore,
     exact: true,
   },
-  {
-    path: "/messenger",
-    layout: LayoutBasic,
-    component: Messenger,
-    exact: true,
-  },
+  // {
+  //   path: "/messenger",
+  //   layout: LayoutBasic,
+  //   component: Messenger,
+  //   exact: true,
+  // },
 
   {
     path: "/user/confirm/:token",

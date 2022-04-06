@@ -9,7 +9,7 @@ import {
   COUNT_LIKES,
 } from "../../../../gql/like";
 
-export default function Actions({ post, isTheSame, isFollow }) {
+export default function Actions({ movie }) {
   const [loadingAction, setLoadingAction] = useState(false);
 
   const [deleteLike] = useMutation(DELETE_LIKE);
@@ -20,13 +20,13 @@ export default function Actions({ post, isTheSame, isFollow }) {
     refetch: refetchCount,
   } = useQuery(COUNT_LIKES, {
     variables: {
-      idPost: post.id,
+      idMovie: movie.id,
     },
   });
 
   const { data, loading, refetch } = useQuery(IS_LIKE, {
     variables: {
-      idPost: post.id,
+      idMovie: movie.id,
     },
   });
 
@@ -37,7 +37,7 @@ export default function Actions({ post, isTheSame, isFollow }) {
     try {
       await addLike({
         variables: {
-          idPost: post.id,
+          idMovie: movie.id,
         },
       });
 
@@ -54,7 +54,7 @@ export default function Actions({ post, isTheSame, isFollow }) {
     try {
       await deleteLike({
         variables: {
-          idPost: post.id,
+          idMovie: movie.id,
         },
       });
       refetch();
@@ -69,13 +69,11 @@ export default function Actions({ post, isTheSame, isFollow }) {
   const onAction = () => {
     // isLike ? onDeleteLike : onAddLike
 
-    if (isTheSame || isFollow) {
-      if (!loadingAction) {
-        if (isLike) {
-          onDeleteLike();
-        } else {
-          onAddLike();
-        }
+    if (!loadingAction) {
+      if (isLike) {
+        onDeleteLike();
+      } else {
+        onAddLike();
       }
     }
   };
@@ -86,44 +84,12 @@ export default function Actions({ post, isTheSame, isFollow }) {
 
   return (
     <div className="actions">
-      {isFollow || isTheSame ? (
-        <>
-          {isLike ? (
-            <Icon
-              name="paw"
-              className="active"
-              // className={isLike ? "like active" : "like"}
-              onClick={onAction}
-            />
-          ) : (
-            <Icon
-              name="paw"
-              className="inactive"
-              // className={isLike ? "like active" : "like"}
-              onClick={onAction}
-            />
-          )}
-        </>
+      {isLike ? (
+        <Icon name="heart" className="active" onClick={onAction} />
       ) : (
-        <div className="actions-inactive">
-          {isLike ? (
-            <Icon
-              name="paw"
-              className="active"
-              // className={isLike ? "like active" : "like"}
-              onClick={onAction}
-            />
-          ) : (
-            <Icon
-              name="paw"
-              className="inactive"
-              // className={isLike ? "like active" : "like"}
-              onClick={onAction}
-            />
-          )}
-        </div>
+        <Icon name="heart outline" className="inactive" onClick={onAction} />
       )}
-      {countLikes} {countLikes === 1 ? "Paw" : "Paws"}
+      {countLikes} {countLikes === 1 ? "Like" : "Likes"}
     </div>
   );
 }

@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { useMutation } from "@apollo/client";
 import { ADD_COMMENT } from "../../../../gql/comment";
 
-export default function CommentForm({ post }) {
+export default function CommentForm({ movie }) {
   const [addComment] = useMutation(ADD_COMMENT);
 
   const formik = useFormik({
@@ -21,7 +21,7 @@ export default function CommentForm({ post }) {
         await addComment({
           variables: {
             input: {
-              idPost: post.id,
+              idMovie: movie.id,
               comment: formData.comment,
             },
           },
