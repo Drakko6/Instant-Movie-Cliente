@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Search as SearchSU, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import "./Search.scss";
 import { useQuery } from "@apollo/client";
 import { SEARCH_MOVIES } from "../../../gql/movie";
-import { size, debounce } from "lodash";
+import { size } from "lodash";
 import ImageNotFound from "../../../assets/png/avatar.png";
+import ModalMovie from "../../Modal/ModalMovie";
 
 export default function Search() {
   const [search, setSearch] = useState(null);
@@ -17,13 +18,12 @@ export default function Search() {
     },
   });
 
-  // const debounceFn = useCallback(debounce(handleDebounceFn, 300), []);
-
   useEffect(() => {
     if (size(data?.searchMovies) > 0) {
       const movies = [];
       data.searchMovies.forEach((movie, index) => {
         movies.push({
+          movie: movie,
           key: index,
           title: movie.title,
           release_date: movie.release_date,
@@ -36,10 +36,6 @@ export default function Search() {
     }
   }, [data]);
 
-  // function handleDebounceFn(inputValue) {
-  //   refetch();
-  // }
-
   const handleChange = (e) => {
     if (e.target.value.length > 0) setSearch(e.target.value);
     else setSearch(null);
@@ -50,32 +46,52 @@ export default function Search() {
     setResults([]);
   };
 
+  const [showModal, setShowModal] = useState(false);
+  const [movieSelected, setMovieSelected] = useState(null);
+
+  const openMovie = (movie) => {
+    setMovieSelected(movie.movie);
+    setShowModal(true);
+  };
+
   return (
-    <SearchSU
-      className="search-movies"
-      fluid
-      input={{ icon: "search", iconPosition: "left" }}
-      loading={loading}
-      value={search || ""}
-      onSearchChange={handleChange}
-      onResultSelect={handleResultSelect}
-      results={results}
-      placeholder="Buscar Película..."
-      resultRenderer={(e) => <ResultSearch data={e} />}
-    />
+    <>
+      <SearchSU
+        className="search-movies"
+        fluid
+        input={{ icon: "search", iconPosition: "left" }}
+        loading={loading}
+        value={search || ""}
+        onSearchChange={handleChange}
+        onResultSelect={handleResultSelect}
+        results={results}
+        placeholder="Buscar Película..."
+        resultRenderer={(e) => <ResultSearch data={e} openMovie={openMovie} />}
+      />
+
+      {showModal && (
+        <ModalMovie
+          show={showModal}
+          setShow={setShowModal}
+          movie={movieSelected}
+        />
+      )}
+    </>
   );
 }
 
-function ResultSearch({ data }) {
+function ResultSearch({ data, openMovie }) {
   return (
-    <Link className="search-users_item" to={`/${data.title}`}>
-      {/* Abrir el modal con la info de la película */}
-      <Image src={data.avatar || ImageNotFound} />
+    <>
+      <div className="search-users_item" onClick={() => openMovie(data)}>
+        {/* Abrir el modal con la info de la película */}
+        <Image src={data.avatar || ImageNotFound} />
 
-      <div>
-        <p>{data.title}</p>
-        <p>{data.release_date}</p>
+        <div>
+          <p>{data.title}</p>
+          <p>{data.release_date}</p>
+        </div>
       </div>
-    </Link>
+    </>
   );
 }

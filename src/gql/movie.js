@@ -53,9 +53,28 @@ export const GET_POPULAR_MOVIES = gql`
     }
   }
 `;
+
 export const SEARCH_MOVIES = gql`
   query searchMovies($search: String) {
     searchMovies(search: $search) {
+      id
+      title
+      original_title
+      genres {
+        name
+        id
+      }
+      release_date
+      poster_path
+      backdrop_path
+      overview
+    }
+  }
+`;
+
+export const GET_MOVIES_BY_GENRE = gql`
+  query getMoviesByGenre($idGenre: Int, $limit: Int) {
+    getMoviesByGenre(idGenre: $idGenre, limit: $limit) {
       id
       title
       original_title

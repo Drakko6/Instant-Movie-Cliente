@@ -13,18 +13,13 @@ export default function User() {
     variables: { username },
   });
 
-  useEffect(
-    () => {
-      //  NOTA: ESTO CONSUME RECURSOS DEL SERVIDOR
-      // startPolling(5000);
-      // return () => {
-      //   stopPolling();
-      // };
-    },
-    [
-      // startPolling, stopPolling
-    ]
-  );
+  useEffect(() => {
+    //  NOTA: ESTO CONSUME RECURSOS DEL SERVIDOR
+    startPolling(3000);
+    return () => {
+      stopPolling();
+    };
+  }, [startPolling, stopPolling]);
 
   if (loading) return null;
   if (data === undefined) return null;

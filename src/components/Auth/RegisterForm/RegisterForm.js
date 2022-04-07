@@ -83,15 +83,16 @@ const RegisterForm = ({ setShowLogin }) => {
 
   return (
     <>
-      <h2 className="register-form-title">Únete a la comunidad de perritos</h2>
+      <h2 className="register-form-title">Únete a la comunidad de cinéfilos</h2>
       <Form className="register-form" onSubmit={formik.handleSubmit}>
         <Form.Input
           type="text"
-          placeholder="Nombre de lomito"
+          placeholder="Nombre de la persona"
           name="name"
           onChange={formik.handleChange}
           value={formik.values.name}
           error={
+            formik.touched.name &&
             formik.errors.name && {
               content: `${formik.errors.name}`,
               pointing: "below",
@@ -105,6 +106,7 @@ const RegisterForm = ({ setShowLogin }) => {
           onChange={formik.handleChange}
           value={formik.values.username}
           error={
+            formik.touched.username &&
             formik.errors.username && {
               content: `${formik.errors.username}`,
               pointing: "below",
@@ -118,6 +120,7 @@ const RegisterForm = ({ setShowLogin }) => {
           onChange={formik.handleChange}
           value={formik.values.email}
           error={
+            formik.touched.email &&
             formik.errors.email && {
               content: `${formik.errors.email}`,
               pointing: "below",
@@ -131,6 +134,7 @@ const RegisterForm = ({ setShowLogin }) => {
           onChange={formik.handleChange}
           value={formik.values.password}
           error={
+            formik.touched.password &&
             formik.errors.password && {
               content: `${formik.errors.password}`,
               pointing: "below",
@@ -144,6 +148,7 @@ const RegisterForm = ({ setShowLogin }) => {
           onChange={formik.handleChange}
           value={formik.values.repeatPassword}
           error={
+            formik.touched.repeatPassword &&
             formik.errors.repeatPassword && {
               content: `${formik.errors.repeatPassword}`,
               pointing: "below",
@@ -166,6 +171,7 @@ const RegisterForm = ({ setShowLogin }) => {
           options={states}
           selection
           error={
+            formik.touched.state &&
             formik.errors.state && {
               content: `${formik.errors.state}`,
               pointing: "below",
@@ -186,6 +192,7 @@ const RegisterForm = ({ setShowLogin }) => {
           options={cities}
           selection
           error={
+            formik.touched.town &&
             formik.errors.town && {
               content: `${formik.errors.town}`,
               pointing: "below",

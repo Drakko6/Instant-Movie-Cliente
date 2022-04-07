@@ -48,22 +48,19 @@ export default function Followers({ username, totalFavorites }) {
   });
 
   //PARA REALTIME DE SEGUIDORES
-  useEffect(
-    () => {
-      // startPollingFollowers(3000);
-      // startPollingFolloweds(3000);
-      // return () => {
-      //   stopPollingFollowers();
-      //   stopPollingFolloweds();
-      // };
-    },
-    [
-      // startPollingFollowers,
-      // stopPollingFollowers,
-      // startPollingFolloweds,
-      // stopPollingFolloweds,
-    ]
-  );
+  useEffect(() => {
+    startPollingFollowers(3000);
+    startPollingFolloweds(3000);
+    return () => {
+      stopPollingFollowers();
+      stopPollingFolloweds();
+    };
+  }, [
+    startPollingFollowers,
+    stopPollingFollowers,
+    startPollingFolloweds,
+    stopPollingFolloweds,
+  ]);
 
   if (loadingFollowers || loadingFolloweds) return null;
   const { getFollowers } = dataFollowers;

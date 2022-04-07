@@ -25,3 +25,9 @@ export const ADD_TO_FAVORITES = gql`
     addToFavorites(idMovie: $idMovie)
   }
 `;
+
+export const IS_FAVORITE = gql`
+  query isFavorite($idMovie: ID!) {
+    isFavorite(idMovie: $idMovie)
+  }
+`;

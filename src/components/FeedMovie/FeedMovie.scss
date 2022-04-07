@@ -1,4 +1,14 @@
-@import "../../../scss/index.scss";
+@import "../../index.scss";
+
+.feed-movie-title-container {
+  position: absolute;
+  z-index: 2;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+}
 
 .feed {
   padding-top: 50px;
@@ -17,7 +27,7 @@
     margin-bottom: 50px;
     margin-left: 10px;
     margin-right: 10px;
-    cursor: pointer;
+    // cursor: pointer;
   }
 
   &__box {

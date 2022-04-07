@@ -6,7 +6,7 @@ import PreviewMovie from "./PreviewMovie";
 
 import { useMediaQuery } from "react-responsive";
 
-export default function Movies({ getMovies, recomendations }) {
+export default function Movies({ getMovies, recomendations, refetch }) {
   const isMovil = useMediaQuery({ query: "(max-width: 600px)" });
   const isTablet = useMediaQuery({
     query: "(min-width: 601px) and (max-width: 1099px)",
@@ -31,7 +31,11 @@ export default function Movies({ getMovies, recomendations }) {
             <Grid columns={1} className="grid-movies">
               {map(getMovies, (movie, index) => (
                 <Grid.Column key={index} className="movie-movil">
-                  <PreviewMovie movie={movie} isFavorite={!recomendations} />
+                  <PreviewMovie
+                    refetch={refetch}
+                    movie={movie}
+                    isFavorite={!recomendations}
+                  />
                 </Grid.Column>
               ))}
             </Grid>
@@ -41,7 +45,11 @@ export default function Movies({ getMovies, recomendations }) {
             <Grid columns={2}>
               {map(getMovies, (movie, index) => (
                 <Grid.Column key={index} className="movie-margin">
-                  <PreviewMovie movie={movie} isFavorite={!recomendations} />
+                  <PreviewMovie
+                    refetch={refetch}
+                    movie={movie}
+                    isFavorite={!recomendations}
+                  />
                 </Grid.Column>
               ))}
             </Grid>
@@ -51,7 +59,11 @@ export default function Movies({ getMovies, recomendations }) {
             <Grid columns={4}>
               {map(getMovies, (movie, index) => (
                 <Grid.Column key={index} className="movie-margin">
-                  <PreviewMovie movie={movie} isFavorite={!recomendations} />
+                  <PreviewMovie
+                    refetch={refetch}
+                    movie={movie}
+                    isFavorite={!recomendations}
+                  />
                 </Grid.Column>
               ))}
             </Grid>

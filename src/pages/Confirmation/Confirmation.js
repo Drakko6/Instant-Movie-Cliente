@@ -39,7 +39,7 @@ export default function Confirmation() {
 
   return (
     <div className="confirmation">
-      <p>Tu cuenta se ha confirmado</p>
+      <p style={{ color: "aliceblue" }}>Tu cuenta se ha confirmado</p>
       <p onClick={() => goToHome()}>Ir a iniciar sesión</p>
     </div>
   );

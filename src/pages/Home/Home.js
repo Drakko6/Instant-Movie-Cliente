@@ -45,7 +45,7 @@ export default function Home() {
           {isDesktopOrLaptop && (
             <Grid className="home">
               <Grid.Column className="home__left" width={16}>
-                <Feed />
+                <Feed user={getUser} />
               </Grid.Column>
             </Grid>
           )}

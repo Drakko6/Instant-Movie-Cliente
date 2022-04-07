@@ -17,9 +17,11 @@ export default function Home() {
   });
 
   //QUERY DE POST RECOMENDADOS
-  const { data, loading, startPolling, stopPolling } = useQuery(
-    GET_RECOMMENDED_MOVIES
-  );
+  const { data, loading, refetch } = useQuery(GET_RECOMMENDED_MOVIES);
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   useEffect(
     () => {
@@ -34,7 +36,12 @@ export default function Home() {
   );
   if (loading)
     return (
-      <Dimmer active>
+      <Dimmer
+        active
+        style={{
+          backgroundColor: "rgba(0,0, 0, 0)",
+        }}
+      >
         <Loader size="huge" />
       </Dimmer>
     );
@@ -46,7 +53,11 @@ export default function Home() {
       {isDesktopOrLaptop && (
         <Grid className="home">
           <Grid.Column className="home__left" width={16}>
-            <Movies getMovies={getRecommendedMovies} recomendations={true} />
+            <Movies
+              refetch={refetch}
+              getMovies={getRecommendedMovies}
+              recomendations={true}
+            />
           </Grid.Column>
         </Grid>
       )}
@@ -54,7 +65,11 @@ export default function Home() {
       {isTablet && (
         <Grid className="home">
           <Grid.Column className="home__left" width={16}>
-            <Movies getMovies={getRecommendedMovies} recomendations={true} />
+            <Movies
+              refetch={refetch}
+              getMovies={getRecommendedMovies}
+              recomendations={true}
+            />
           </Grid.Column>
         </Grid>
       )}
@@ -62,7 +77,11 @@ export default function Home() {
       {isMovil && (
         <Grid className="home-movil">
           <Grid.Row>
-            <Movies getMovies={getRecommendedMovies} recomendations={true} />
+            <Movies
+              refetch={refetch}
+              getMovies={getRecommendedMovies}
+              recomendations={true}
+            />
           </Grid.Row>
         </Grid>
       )}

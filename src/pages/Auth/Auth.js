@@ -5,6 +5,7 @@ import LoginForm from "../../components/Auth/LoginForm";
 
 import logo from "../../assets/png/Logo.png";
 import "./Auth.scss";
+import RegisterForm from "../../components/Auth/RegisterForm";
 
 const Auth = () => {
   const [showLogin, setShowLogin] = useState(true);
@@ -14,7 +15,11 @@ const Auth = () => {
       <Image src={logo} className="logo-inicio" />
 
       <div className="container-form">
-        {showLogin ? <LoginForm /> : <SelectUser setShowLogin={setShowLogin} />}
+        {showLogin ? (
+          <LoginForm />
+        ) : (
+          <RegisterForm setShowLogin={setShowLogin} />
+        )}
       </div>
 
       <div className="change-form">

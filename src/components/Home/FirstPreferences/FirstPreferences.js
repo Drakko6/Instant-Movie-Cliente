@@ -3,15 +3,22 @@ import { useMutation } from "@apollo/client";
 import { REGISTER_FIRST_PREFERENCES } from "../../../gql/user";
 import { toast } from "react-toastify";
 import "./FirstPreferences.scss";
-import { Icon, Button } from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 import { Grid, Card } from "semantic-ui-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBone,
-  faCookieBite,
-  faTshirt,
-  faDog,
-  faAward,
+  faSnowman,
+  faGrinTears,
+  faChildren,
+  faUserSecret,
+  faPersonMilitaryRifle,
+  faGun,
+  faGem,
+  faSadCry,
+  faDragon,
+  faSkull,
+  faRobot,
+  faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 
 const FirstPreferences = ({ setPreferencesUploaded, refetch }) => {
@@ -24,37 +31,62 @@ const FirstPreferences = ({ setPreferencesUploaded, refetch }) => {
   //estado para cambiar estilos de categorias
   const [categoriesStyles, setCategoriesStyles] = useState([
     {
-      category: "Veterinaria",
+      category: 28,
 
       style: "",
     },
     {
-      category: "Comida",
+      category: 12,
 
       style: "",
     },
     {
-      category: "Juguetes",
+      category: 16,
 
       style: "",
     },
     {
-      category: "Ropa",
+      category: 27,
 
       style: "",
     },
     {
-      category: "Estética",
+      category: 35,
 
       style: "",
     },
     {
-      category: "Guardería",
+      category: 80,
 
       style: "",
     },
     {
-      category: "Entrenamiento",
+      category: 18,
+
+      style: "",
+    },
+    {
+      category: 10751,
+
+      style: "",
+    },
+    {
+      category: 878,
+
+      style: "",
+    },
+    {
+      category: 10749,
+
+      style: "",
+    },
+    {
+      category: 14,
+
+      style: "",
+    },
+    {
+      category: 10752,
 
       style: "",
     },
@@ -93,6 +125,7 @@ const FirstPreferences = ({ setPreferencesUploaded, refetch }) => {
   };
 
   const onClickSave = async () => {
+    console.log(preferences);
     if (preferences.length < 3) {
       setErrorSave(true);
     } else {
@@ -117,9 +150,9 @@ const FirstPreferences = ({ setPreferencesUploaded, refetch }) => {
     <>
       <div className="first-preferences">
         <h3 className="title">
-          Antes de empezar, déjanos saber qué tipo de productos te gustan más
+          Antes de empezar, déjanos saber qué géneros de películas te gustan más
         </h3>
-        <h4>Elige tres de nuestras categorías </h4>
+        <h4>Elige tres de para conocerte mejor </h4>
 
         <Button
           type="submit"
@@ -133,83 +166,126 @@ const FirstPreferences = ({ setPreferencesUploaded, refetch }) => {
         )}
 
         <Grid className="grid-preferences">
-          <Grid.Row columns={3}>
+          <Grid.Row columns={4}>
             <Grid.Column>
               <Card
-                onClick={() => onClickPreference("Veterinaria", 0)}
+                onClick={() => onClickPreference(28, 0)}
                 className={categoriesStyles[0].style}
               >
-                <Icon name="hospital" />
-                <h6>Veterinaria</h6>
+                <FontAwesomeIcon icon={faGun} />
+                <h6>Acción</h6>
               </Card>
             </Grid.Column>
 
             <Grid.Column>
               <Card
-                onClick={() => onClickPreference("Comida", 1)}
+                onClick={() => onClickPreference(12, 1)}
                 className={categoriesStyles[1].style}
               >
-                <FontAwesomeIcon icon={faCookieBite} />
-                <h6>Comida</h6>
+                <FontAwesomeIcon icon={faGem} />
+                <h6>Aventura</h6>
               </Card>
             </Grid.Column>
 
             <Grid.Column>
               <Card
-                onClick={() => onClickPreference("Juguetes", 2)}
+                onClick={() => onClickPreference(16, 2)}
                 className={categoriesStyles[2].style}
               >
-                <FontAwesomeIcon icon={faBone} />
-                <h6>Juguetes</h6>
+                <FontAwesomeIcon icon={faSnowman} />
+                <h6>Animación</h6>
               </Card>
             </Grid.Column>
-          </Grid.Row>
 
-          <Grid.Row columns={3}>
             <Grid.Column>
               <Card
-                onClick={() => onClickPreference("Ropa", 3)}
+                onClick={() => onClickPreference(27, 3)}
                 className={categoriesStyles[3].style}
               >
-                <FontAwesomeIcon icon={faTshirt} />
-                <h6>Ropa</h6>
-              </Card>
-            </Grid.Column>
-
-            <Grid.Column>
-              <Card
-                onClick={() => onClickPreference("Estética", 4)}
-                className={categoriesStyles[4].style}
-              >
-                <Icon name="bath" />
-                <h6>Estética</h6>
-              </Card>
-            </Grid.Column>
-
-            <Grid.Column>
-              <Card
-                onClick={() => onClickPreference("Guardería", 5)}
-                className={categoriesStyles[5].style}
-              >
-                <FontAwesomeIcon icon={faDog} />
-                <h6>Guardería</h6>
+                <FontAwesomeIcon icon={faSkull} />
+                <h6>Terror</h6>
               </Card>
             </Grid.Column>
           </Grid.Row>
 
-          <Grid.Row columns={3}>
-            <Grid.Column></Grid.Column>
+          <Grid.Row columns={4}>
+            <Grid.Column>
+              <Card
+                onClick={() => onClickPreference(35, 4)}
+                className={categoriesStyles[4].style}
+              >
+                <FontAwesomeIcon icon={faGrinTears} />
+                <h6>Comedia</h6>
+              </Card>
+            </Grid.Column>
 
             <Grid.Column>
               <Card
-                onClick={() => onClickPreference("Entrenamiento", 6)}
-                className={categoriesStyles[6].style}
+                onClick={() => onClickPreference(80, 5)}
+                className={categoriesStyles[5].style}
               >
-                <FontAwesomeIcon icon={faAward} />
-                <h6>Entrenamiento</h6>
+                <FontAwesomeIcon icon={faUserSecret} />
+                <h6>Crimen</h6>
               </Card>
             </Grid.Column>
-            <Grid.Column></Grid.Column>
+
+            <Grid.Column>
+              <Card
+                onClick={() => onClickPreference(18, 6)}
+                className={categoriesStyles[6].style}
+              >
+                <FontAwesomeIcon icon={faSadCry} />
+                <h6>Drama</h6>
+              </Card>
+            </Grid.Column>
+            <Grid.Column>
+              <Card
+                onClick={() => onClickPreference(10751, 7)}
+                className={categoriesStyles[7].style}
+              >
+                <FontAwesomeIcon icon={faChildren} />
+                <h6>Familiar</h6>
+              </Card>
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row columns={4}>
+            <Grid.Column>
+              <Card
+                onClick={() => onClickPreference(878, 8)}
+                className={categoriesStyles[8].style}
+              >
+                <FontAwesomeIcon icon={faRobot} />
+                <h6>Ciencia Ficción</h6>
+              </Card>
+            </Grid.Column>
+            <Grid.Column>
+              <Card
+                onClick={() => onClickPreference(10749, 9)}
+                className={categoriesStyles[9].style}
+              >
+                <FontAwesomeIcon icon={faHeart} />
+                <h6>Romance</h6>
+              </Card>
+            </Grid.Column>
+            <Grid.Column>
+              <Card
+                onClick={() => onClickPreference(14, 10)}
+                className={categoriesStyles[10].style}
+              >
+                <FontAwesomeIcon icon={faDragon} />
+                <h6>Fantasía</h6>
+              </Card>
+            </Grid.Column>
+            <Grid.Column>
+              <Card
+                onClick={() => onClickPreference(10752, 11)}
+                className={categoriesStyles[11].style}
+              >
+                <FontAwesomeIcon icon={faPersonMilitaryRifle} />
+                <h6>Bélica</h6>
+              </Card>
+            </Grid.Column>
           </Grid.Row>
         </Grid>
       </div>

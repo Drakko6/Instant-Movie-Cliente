@@ -2,6 +2,8 @@
 
 .header {
   position: relative;
+  z-index: 10;
+
   // border-bottom: 1px solid #dbdbdb;
   padding: 12px 0;
   background-image: radial-gradient(
@@ -13,7 +15,6 @@
     #0026b6 100%
   );
   // background-color: $background-light;
-  z-index: 1;
 
   &_logo {
     display: flex !important;

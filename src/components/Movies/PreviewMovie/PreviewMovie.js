@@ -9,7 +9,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { toast } from "react-toastify";
 import { ADD_TO_FAVORITES } from "../../../gql/favorites";
 
-export default function PreviewMovie({ movie, isFavorite }) {
+export default function PreviewMovie({ movie, isFavorite, refetch }) {
   const [loadingAction, setLoadingAction] = useState(false);
   const [addToFavorites] = useMutation(ADD_TO_FAVORITES);
 
@@ -44,7 +44,7 @@ export default function PreviewMovie({ movie, isFavorite }) {
         },
       });
 
-      // refetch();
+      refetch();
       toast.success("Película agregada a tus favoritos");
     } catch (error) {
       console.log(error);
