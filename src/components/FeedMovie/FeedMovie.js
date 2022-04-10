@@ -34,7 +34,7 @@ export default function FeedMovie({ movie, openMovie }) {
             </div>
             <div
               className="feed__box-photo"
-              onClick={() => openMovie(movie)}
+              onClick={(e) => openMovie(movie, e)}
               style={{
                 backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie.poster_path}")`,
                 padding: 0,

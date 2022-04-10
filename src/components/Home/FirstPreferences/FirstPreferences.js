@@ -125,7 +125,6 @@ const FirstPreferences = ({ setPreferencesUploaded, refetch }) => {
   };
 
   const onClickSave = async () => {
-    console.log(preferences);
     if (preferences.length < 3) {
       setErrorSave(true);
     } else {

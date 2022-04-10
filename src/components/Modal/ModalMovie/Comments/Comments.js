@@ -15,7 +15,7 @@ export default function Comments({ movie }) {
   });
 
   useEffect(() => {
-    startPolling(1500);
+    startPolling(1000);
     return () => {
       stopPolling();
     };

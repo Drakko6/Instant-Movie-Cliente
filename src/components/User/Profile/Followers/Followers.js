@@ -49,8 +49,8 @@ export default function Followers({ username, totalFavorites }) {
 
   //PARA REALTIME DE SEGUIDORES
   useEffect(() => {
-    startPollingFollowers(3000);
-    startPollingFolloweds(3000);
+    startPollingFollowers(2000);
+    startPollingFolloweds(2000);
     return () => {
       stopPollingFollowers();
       stopPollingFolloweds();

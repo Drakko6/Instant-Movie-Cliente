@@ -15,7 +15,7 @@ export default function User() {
 
   useEffect(() => {
     //  NOTA: ESTO CONSUME RECURSOS DEL SERVIDOR
-    startPolling(3000);
+    startPolling(1500);
     return () => {
       stopPolling();
     };
