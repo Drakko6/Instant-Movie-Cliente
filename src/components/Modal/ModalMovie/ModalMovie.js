@@ -7,8 +7,34 @@ import Actions from "./Actions";
 import { URL_API, API } from "../../../utils/constants";
 import useFetch from "../../../hooks/useFetch";
 import ModalVideo from "../../ModalVideo/ModalVideo";
+import AddToFavorite from "./AddToFavorite";
+import { Rating } from "react-simple-star-rating";
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_SCORE, GET_TOTAL_SCORE, SCORE_MOVIE } from "../../../gql/score";
 
 export default function ModalMovie({ show, setShow, movie }) {
+  const [scoreMovie] = useMutation(SCORE_MOVIE);
+
+  const {
+    data: dataMyScore,
+    loading: loadingScore,
+    refetch,
+  } = useQuery(GET_SCORE, {
+    variables: {
+      idMovie: movie.id,
+    },
+  });
+
+  const {
+    data: dataTotalScore,
+    loading: loadingTotalScore,
+    refetch: refetchTotalScore,
+  } = useQuery(GET_TOTAL_SCORE, {
+    variables: {
+      idMovie: movie.id,
+    },
+  });
+
   const onClose = () => {
     setShow(false);
   };
@@ -65,6 +91,28 @@ export default function ModalMovie({ show, setShow, movie }) {
     }
   };
 
+  const onChangeRating = async (score) => {
+    try {
+      await scoreMovie({
+        variables: {
+          input: {
+            idMovie: movie.id,
+            score: score / 20,
+          },
+        },
+      });
+
+      refetch();
+      refetchTotalScore();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (loadingScore || loadingTotalScore) return null;
+  const { getScore } = dataMyScore;
+  const { getTotalScore } = dataTotalScore;
+
   return (
     <Modal open={show} onClose={onClose} className="modal-movie">
       <Grid>
@@ -97,9 +145,12 @@ export default function ModalMovie({ show, setShow, movie }) {
               display: "flex",
               alignItems: "center",
               height: "100%",
+              width: "100%",
             }}
           >
-            <div>
+            <div style={{ width: "100%" }}>
+              <AddToFavorite movie={movie} />
+
               {renderVideo()}
 
               <h2 style={{ color: "white" }}>
@@ -108,6 +159,15 @@ export default function ModalMovie({ show, setShow, movie }) {
                   {movie.release_date}
                 </span>
               </h2>
+              <p style={{ fontSize: "large", color: "white" }}>
+                <span>
+                  <Icon name="star" color="yellow" /> {getTotalScore.total} / 5
+                </span>
+                <span style={{ fontSize: "medium" }}>
+                  {"  "}({getTotalScore.scoresNumber})
+                </span>
+              </p>
+
               <p style={{ color: "white" }}>
                 {movie.overview
                   ? movie.overview
@@ -119,6 +179,30 @@ export default function ModalMovie({ show, setShow, movie }) {
                   <li key={genre.id}>{genre.name}</li>
                 ))}
               </ul>
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "end",
+                  width: "100%",
+                }}
+              >
+                <Rating
+                  size={20}
+                  transition
+                  onClick={onChangeRating}
+                  ratingValue={getScore * 20}
+                  tooltipDefaultText={"Tu calificación"}
+                  showTooltip
+                  tooltipArray={[
+                    "Terrible",
+                    "Mala",
+                    "Regular",
+                    "Buena",
+                    "Excelente",
+                  ]}
+                />
+              </div>
             </div>
           </div>
         </Grid.Column>

@@ -42,38 +42,38 @@ export default function Home() {
         />
       ) : (
         <>
-          {isDesktopOrLaptop && (
-            <Grid className="home">
-              <Grid.Column className="home__left" width={16}>
-                <Feed user={getUser} />
-              </Grid.Column>
-            </Grid>
-          )}
+          {/* {isDesktopOrLaptop && ( */}
+          <Grid className="home">
+            <Grid.Column className="home__left" width={16}>
+              <Feed user={getUser} />
+            </Grid.Column>
+          </Grid>
+          {/* )} */}
 
-          {isTablet && (
+          {/* {isTablet && (
             <Grid className="home">
-              {/* <Grid.Column className="home__left" width={4}>
+               <Grid.Column className="home__left" width={4}>
                 <SideMenu />
-              </Grid.Column> */}
+              </Grid.Column> 
               <Grid.Column className="home__left" width={16}>
-                <FeedTablet />
+                <FeedTablet user={getUser} />
               </Grid.Column>
             </Grid>
-          )}
+          )} */}
 
-          {isMovil && (
+          {/* {isMovil && (
             <Grid className="home-movil">
-              {/* <Grid.Row className="home-movil_top">
+              <Grid.Row className="home-movil_top">
                 <SideMenuMovil />
-              </Grid.Row> */}
-              {/* <Grid.Row className="home-movil_top">
+              </Grid.Row> 
+               <Grid.Row className="home-movil_top">
                 <UsersNotFollowedsMovil user={auth} />
-              </Grid.Row> */}
+              </Grid.Row>
               <Grid.Row>
                 <FeedMovil />
               </Grid.Row>
             </Grid>
-          )}
+          )} */}
         </>
       )}
     </>

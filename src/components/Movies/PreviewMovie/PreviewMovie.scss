@@ -4,6 +4,7 @@
   height: 400px;
   width: 90%;
   padding-bottom: 60px;
+  cursor: pointer;
   // padding-top: 10px;
   // padding-left: 10px;
   // padding-right: 10px;
@@ -54,6 +55,8 @@
   }
 
   &_tablet {
+    cursor: pointer;
+
     height: 400px;
     width: 90%;
     padding-bottom: 40px;
@@ -71,6 +74,8 @@
   }
 
   &_movil {
+    cursor: pointer;
+
     height: 400px;
     width: 95%;
 

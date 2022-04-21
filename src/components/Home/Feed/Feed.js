@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./Feed.scss";
-import { map } from "lodash";
-import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { Dimmer, Icon, Image, List, Loader } from "semantic-ui-react";
+import { Dimmer, Loader } from "semantic-ui-react";
 import {
   GET_LAST_MOVIES,
   GET_POPULAR_MOVIES,
   GET_MOVIES_BY_GENRE,
 } from "../../../gql/movie";
-import ImageNotFound from "../../../assets/png/avatar.png";
-import Actions from "../../Modal/ModalMovieMovil/Actions";
 import ModalMovie from "../../Modal/ModalMovie";
-import FeedMovie from "../../FeedMovie/FeedMovie";
 import MyCarousel from "../../MyCarousel";
+import ModalMovieMovil from "../../Modal/ModalMovieMovil";
+import { useMediaQuery } from "react-responsive";
 
 export default function Feed({ user }) {
+  const isMovil = useMediaQuery({ query: "(max-width: 600px)" });
+
   const [showModal, setShowModal] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
   const [movieSelected, setMovieSelected] = useState(null);
@@ -112,23 +111,13 @@ export default function Feed({ user }) {
   const indexGenero3 = moviesByGenre3[0].genres.findIndex(
     (genre) => genre.id === user.preferences[2]
   );
+
   return (
     <>
       <div className="feed">
         {getPopularMovies.length === 0 && (
           <h2 className="feed__noposts">No hay películas para ver aún</h2>
         )}
-
-        {/* <List horizontal className="list">
-          <h2 className="feed__noposts">
-            Porque te gusta el género{" "}
-            {moviesByGenre1[0].genres[indexGenero1].name}
-          </h2>
-
-          {map(moviesByGenre1, (movie) => (
-            <FeedMovie key={movie.id} movie={movie} openMovie={openMovie} />
-          ))}
-        </List> */}
 
         <h2 className="feed__noposts">
           Porque te gusta el género{" "}
@@ -139,17 +128,6 @@ export default function Feed({ user }) {
           openMovie={openMovie}
           setIsMoving={setIsMoving}
         />
-
-        {/* <List horizontal className="list">
-          <h2 className="feed__noposts">
-            Porque te gusta el género{" "}
-            {moviesByGenre2[0].genres[indexGenero2].name}
-          </h2>
-
-          {map(moviesByGenre2, (movie) => (
-            <FeedMovie key={movie.id} movie={movie} openMovie={openMovie} />
-          ))}
-        </List> */}
 
         <h2 className="feed__noposts">
           Porque te gusta el género{" "}
@@ -162,17 +140,6 @@ export default function Feed({ user }) {
           setIsMoving={setIsMoving}
         />
 
-        {/* <List horizontal className="list">
-          <h2 className="feed__noposts">
-            Porque te gusta el género{" "}
-            {moviesByGenre3[0].genres[indexGenero3].name}
-          </h2>
-
-          {map(moviesByGenre3, (movie) => (
-            <FeedMovie key={movie.id} movie={movie} openMovie={openMovie} />
-          ))}
-        </List> */}
-
         <h2 className="feed__noposts">
           Porque te gusta el género{" "}
           {moviesByGenre3[0].genres[indexGenero3].name}
@@ -184,14 +151,6 @@ export default function Feed({ user }) {
           setIsMoving={setIsMoving}
         />
 
-        {/* <List horizontal className="list">
-          <h2 className="feed__noposts">Películas más populares</h2>
-
-          {map(getPopularMovies, (movie) => (
-            <FeedMovie key={movie.id} movie={movie} openMovie={openMovie} />
-          ))}
-        </List> */}
-
         <h2 className="feed__noposts">Películas más populares</h2>
 
         <MyCarousel
@@ -199,14 +158,6 @@ export default function Feed({ user }) {
           openMovie={openMovie}
           setIsMoving={setIsMoving}
         />
-
-        {/* <List horizontal className="list">
-          <h2 className="feed__noposts">Últimos lanzamientos</h2>
-
-          {map(getLastMovies, (movie) => (
-            <FeedMovie key={movie.id} movie={movie} openMovie={openMovie} />
-          ))}
-        </List> */}
 
         <h2 className="feed__noposts">Últimos lanzamientos</h2>
 
@@ -218,11 +169,21 @@ export default function Feed({ user }) {
       </div>
 
       {showModal && (
-        <ModalMovie
-          show={showModal}
-          setShow={setShowModal}
-          movie={movieSelected}
-        />
+        <>
+          {isMovil ? (
+            <ModalMovieMovil
+              show={showModal}
+              setShow={setShowModal}
+              movie={movieSelected}
+            />
+          ) : (
+            <ModalMovie
+              show={showModal}
+              setShow={setShowModal}
+              movie={movieSelected}
+            />
+          )}
+        </>
       )}
     </>
   );

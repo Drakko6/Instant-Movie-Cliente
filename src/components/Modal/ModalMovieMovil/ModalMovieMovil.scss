@@ -1,11 +1,16 @@
 @import "../../../scss/index.scss";
 
-.modal-post-movil {
-  height: 600px !important;
+.modal-movie-movil {
+  height: 700px !important;
 
   .ui.grid {
     margin: 0;
     height: 100%;
+  }
+
+  .react-simple-star-rating-tooltip {
+    width: 120px;
+    text-align: center;
   }
 
   &__top {
@@ -13,13 +18,13 @@
     background-size: contain;
     background-color: black;
     background-repeat: no-repeat;
-    height: 300px;
+    height: 450px;
   }
 
   &__bottom {
     padding: 0 !important;
     display: block;
-    height: 300px;
+    height: 250px;
 
     .comments {
       display: block !important;

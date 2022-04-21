@@ -7,8 +7,12 @@ import { SEARCH_MOVIES } from "../../../gql/movie";
 import { size } from "lodash";
 import ImageNotFound from "../../../assets/png/avatar.png";
 import ModalMovie from "../../Modal/ModalMovie";
+import ModalMovieMovil from "../../Modal/ModalMovieMovil";
+import { useMediaQuery } from "react-responsive";
 
 export default function Search() {
+  const isMovil = useMediaQuery({ query: "(max-width: 600px)" });
+
   const [search, setSearch] = useState(null);
   const [results, setResults] = useState([]);
 
@@ -67,14 +71,25 @@ export default function Search() {
         results={results}
         placeholder="Buscar Película..."
         resultRenderer={(e) => <ResultSearch data={e} openMovie={openMovie} />}
+        noResultsMessage="Sin resultados"
       />
 
       {showModal && (
-        <ModalMovie
-          show={showModal}
-          setShow={setShowModal}
-          movie={movieSelected}
-        />
+        <>
+          {isMovil ? (
+            <ModalMovieMovil
+              show={showModal}
+              setShow={setShowModal}
+              movie={movieSelected}
+            />
+          ) : (
+            <ModalMovie
+              show={showModal}
+              setShow={setShowModal}
+              movie={movieSelected}
+            />
+          )}
+        </>
       )}
     </>
   );
