@@ -8,6 +8,7 @@ import { COUNT_LIKES } from "../../../gql/like";
 import { useMutation, useQuery } from "@apollo/client";
 import { toast } from "react-toastify";
 import { ADD_TO_FAVORITES } from "../../../gql/favorites";
+import AddToFavorite from "../../Modal/ModalMovie/AddToFavorite";
 
 export default function PreviewMovie({ movie, isFavorite, refetch }) {
   const [loadingAction, setLoadingAction] = useState(false);
@@ -34,8 +35,6 @@ export default function PreviewMovie({ movie, isFavorite, refetch }) {
   const { countLikes } = dataCount;
 
   const addToFavoritesAction = async () => {
-    // Correr la mutación, hacer un loading y recargar películas
-
     setLoadingAction(true);
     try {
       await addToFavorites({
@@ -55,43 +54,50 @@ export default function PreviewMovie({ movie, isFavorite, refetch }) {
   return (
     <>
       {isTablet && (
-        <div
-          className="preview-movie_tablet"
-          onClick={() => setShowModal(true)}
-        >
-          <Image
-            className="preview-movie_image"
-            src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-          />
-          <Icon name="like" className="active" />
-          {countLikes} {countLikes === 1 ? "Like" : "Likes"}
-        </div>
+        <>
+          <div className="preview-movie_addToFavorites">
+            <AddToFavorite movie={movie} />
+          </div>
+
+          <div
+            className="preview-movie_tablet"
+            onClick={() => setShowModal(true)}
+          >
+            <Image
+              className="preview-movie_image"
+              src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+            />
+            <Icon name="like" className="active" />
+            {countLikes} {countLikes === 1 ? "Like" : "Likes"}
+          </div>
+        </>
       )}
 
       {isMovil && (
-        <div className="preview-movie_movil" onClick={() => setShowModal(true)}>
-          <Image
-            className="preview-movie_image"
-            src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-          />
-          <Icon name="like" className="active" />
-          {countLikes} {countLikes === 1 ? "Like" : "Likes"}
-        </div>
+        <>
+          <div className="preview-movie_addToFavorites">
+            <AddToFavorite movie={movie} />
+          </div>
+
+          <div
+            className="preview-movie_movil"
+            onClick={() => setShowModal(true)}
+          >
+            <Image
+              className="preview-movie_image"
+              src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+            />
+            <Icon name="like" className="active" />
+            {countLikes} {countLikes === 1 ? "Like" : "Likes"}
+          </div>
+        </>
       )}
 
       {isDesktopOrLaptop && (
         <>
-          {!isFavorite && (
-            <div className="preview-movie_addToFavorites">
-              <Icon
-                name="plus"
-                className="preview-movie_addToFavorites_icon"
-                onClick={addToFavoritesAction}
-              >
-                <span className="tooltiptext">Agregar a Favoritos</span>
-              </Icon>
-            </div>
-          )}
+          <div className="preview-movie_addToFavorites">
+            <AddToFavorite movie={movie} />
+          </div>
 
           <div className="preview-movie" onClick={() => setShowModal(true)}>
             <Image

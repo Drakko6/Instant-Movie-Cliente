@@ -17,20 +17,25 @@ export default function User() {
     variables: { username },
   });
 
-  const { data: dataLists, loading: loadingLists } = useQuery(
-    GET_LISTS_WITH_MOVIE_INFO,
-    {
-      variables: { username },
-    }
-  );
+  const {
+    data: dataLists,
+    loading: loadingLists,
+    refetch: refetchLists,
+    startPolling: startPollingLists,
+    stopPolling: stopPollingLists,
+  } = useQuery(GET_LISTS_WITH_MOVIE_INFO, {
+    variables: { username },
+  });
 
   useEffect(() => {
     //  NOTA: ESTO CONSUME RECURSOS DEL SERVIDOR
     startPolling(1500);
+    // startPollingLists(100);
     return () => {
       stopPolling();
+      // startPollingLists();
     };
-  }, [startPolling, stopPolling]);
+  }, [startPolling, stopPolling, startPollingLists, stopPollingLists]);
 
   if (loading || loadingLists) return null;
   if (data === undefined || dataLists === undefined) return null;
@@ -39,14 +44,18 @@ export default function User() {
 
   return (
     <div className="user-page">
-      <Profile username={username} totalFavorites={getFavorites.length} />
+      <Profile
+        username={username}
+        totalFavorites={getFavorites.length}
+        totalLists={getListsWithMovieInfo.length}
+      />
 
       <Grid>
         <Grid.Column width={8}>
           <Movies getMovies={getFavorites} />
         </Grid.Column>
         <Grid.Column width={8}>
-          <Lists lists={getListsWithMovieInfo} />
+          <Lists lists={getListsWithMovieInfo} refetchLists={refetchLists} />
         </Grid.Column>
       </Grid>
     </div>

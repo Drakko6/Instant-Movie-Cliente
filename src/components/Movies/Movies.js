@@ -20,7 +20,13 @@ export default function Movies({ getMovies, recomendations, refetch }) {
       {getMovies && getMovies.length > 0 ? (
         <>
           {recomendations ? (
-            <h1 style={{ marginBottom: "50px", color: "aliceblue" }}>
+            <h1
+              style={{
+                marginBottom: "30px",
+                marginTop: "30px",
+                color: "aliceblue",
+              }}
+            >
               Conoce más
             </h1>
           ) : (
@@ -42,7 +48,7 @@ export default function Movies({ getMovies, recomendations, refetch }) {
           )}
 
           {isTablet && (
-            <Grid columns={1}>
+            <Grid columns={recomendations ? 2 : 1}>
               {map(getMovies, (movie, index) => (
                 <Grid.Column key={index} className="movie-margin">
                   <PreviewMovie
@@ -56,7 +62,7 @@ export default function Movies({ getMovies, recomendations, refetch }) {
           )}
 
           {isDesktopOrLaptop && (
-            <Grid columns={2}>
+            <Grid columns={recomendations ? 4 : 2}>
               {map(getMovies, (movie, index) => (
                 <Grid.Column key={index} className="movie-margin">
                   <PreviewMovie

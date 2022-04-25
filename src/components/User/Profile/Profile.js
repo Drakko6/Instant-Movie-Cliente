@@ -13,7 +13,7 @@ import SettingsForm from "../SettingsForm";
 import Followers from "./Followers";
 import { useMediaQuery } from "react-responsive";
 
-export default function Profile({ username, totalFavorites }) {
+export default function Profile({ username, totalFavorites, totalLists }) {
   const isMovil = useMediaQuery({ query: "(max-width: 600px)" });
 
   const [showModal, setShowModal] = useState(false);
@@ -87,7 +87,11 @@ export default function Profile({ username, totalFavorites }) {
               )}
             </div>
           </Grid.Column>
-          <Followers username={username} totalFavorites={totalFavorites} />
+          <Followers
+            username={username}
+            totalFavorites={totalFavorites}
+            totalLists={totalLists}
+          />
         </Grid>
       ) : (
         <Grid className="profile">
@@ -106,7 +110,11 @@ export default function Profile({ username, totalFavorites }) {
               auth={auth}
               handleModal={handleModal}
             />
-            <Followers username={username} totalFavorites={totalFavorites} />
+            <Followers
+              username={username}
+              totalFavorites={totalFavorites}
+              totalLists={totalLists}
+            />
             <div className="other">
               <p className="name">{getUser.name}</p>
 

@@ -26,6 +26,12 @@ export const ADD_TO_FAVORITES = gql`
   }
 `;
 
+export const DELETE_FAVORITE = gql`
+  mutation deleteFavorite($idMovie: ID!) {
+    deleteFavorite(idMovie: $idMovie)
+  }
+`;
+
 export const IS_FAVORITE = gql`
   query isFavorite($idMovie: ID!) {
     isFavorite(idMovie: $idMovie)

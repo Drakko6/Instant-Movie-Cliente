@@ -10,6 +10,7 @@
 
   &__header {
     background-image: none !important;
+    z-index: 1;
   }
 
   &__feed {
@@ -27,6 +28,13 @@
     cursor: pointer;
     background-color: #1a364b !important;
     border-radius: 20px;
+    margin-bottom: 10px !important;
+
+    .deleteIcon {
+      &:hover {
+        color: lightCoral !important;
+      }
+    }
   }
 
   &__movie-title {

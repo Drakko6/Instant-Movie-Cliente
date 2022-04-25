@@ -19,6 +19,7 @@
   &_item {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     .ui.image {
       width: 35px !important;

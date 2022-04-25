@@ -1,4 +1,10 @@
-.home {
+.explore {
+  height: calc(100vh - 48px);
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   &__left {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
@@ -8,7 +14,7 @@
   }
 }
 
-.home-movil {
+.explore-movil {
   margin: 10px !important;
 
   &_top {

@@ -6,7 +6,7 @@ import "./Followers.scss";
 import ModalBasic from "../../../Modal/ModalBasic";
 import ListUsers from "../../ListUsers";
 
-export default function Followers({ username, totalFavorites }) {
+export default function Followers({ username, totalFavorites, totalLists }) {
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
   const [childrenModal, setChildrenModal] = useState(null);
@@ -71,6 +71,9 @@ export default function Followers({ username, totalFavorites }) {
       <div className="followers">
         <p>
           <span>{totalFavorites}</span> favoritas
+        </p>
+        <p>
+          <span>{totalLists}</span> listas de películas
         </p>
         <p className="link" onClick={openFollowers}>
           <span>{size(getFollowers)}</span> seguidores

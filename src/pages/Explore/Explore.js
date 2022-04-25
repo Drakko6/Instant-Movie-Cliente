@@ -51,8 +51,8 @@ export default function Home() {
   return (
     <>
       {isDesktopOrLaptop && (
-        <Grid className="home">
-          <Grid.Column className="home__left" width={16}>
+        <Grid className="explore">
+          <Grid.Column className="explore__left" width={16}>
             <Movies
               refetch={refetch}
               getMovies={getRecommendedMovies}
@@ -63,8 +63,8 @@ export default function Home() {
       )}
 
       {isTablet && (
-        <Grid className="home">
-          <Grid.Column className="home__left" width={16}>
+        <Grid className="explore">
+          <Grid.Column className="explore__left" width={16}>
             <Movies
               refetch={refetch}
               getMovies={getRecommendedMovies}
@@ -75,7 +75,7 @@ export default function Home() {
       )}
 
       {isMovil && (
-        <Grid className="home-movil">
+        <Grid className="explore-movil">
           <Grid.Row>
             <Movies
               refetch={refetch}

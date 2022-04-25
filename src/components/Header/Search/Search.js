@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Search as SearchSU, Image, Button, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import "./Search.scss";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { SEARCH_MOVIES } from "../../../gql/movie";
 import { size } from "lodash";
 import ImageNotFound from "../../../assets/png/avatar.png";
 import ModalMovie from "../../Modal/ModalMovie";
 import ModalMovieMovil from "../../Modal/ModalMovieMovil";
 import { useMediaQuery } from "react-responsive";
+import { ADD_MOVIE_TO_LIST } from "../../../gql/lists";
+import { toast } from "react-toastify";
 
-export default function Search({ addingToList, listName }) {
+export default function Search({ addingToList, listName, refetchLists }) {
   const isMovil = useMediaQuery({ query: "(max-width: 600px)" });
 
   const [search, setSearch] = useState(null);
@@ -72,7 +74,11 @@ export default function Search({ addingToList, listName }) {
         placeholder="Buscar Película..."
         resultRenderer={(e) =>
           addingToList ? (
-            <ResultSearchAddToList data={e} listName={listName} />
+            <ResultSearchAddToList
+              data={e}
+              listName={listName}
+              refetchLists={refetchLists}
+            />
           ) : (
             <ResultSearch data={e} openMovie={openMovie} />
           )
@@ -105,7 +111,6 @@ function ResultSearch({ data, openMovie }) {
   return (
     <>
       <div className="search-movies_item" onClick={() => openMovie(data)}>
-        {/* Abrir el modal con la info de la película */}
         <div>
           <p>{data.title}</p>
           <p>{data.release_date}</p>
@@ -115,7 +120,24 @@ function ResultSearch({ data, openMovie }) {
     </>
   );
 }
-function ResultSearchAddToList({ data, listName }) {
+
+function ResultSearchAddToList({ data, listName, refetchLists }) {
+  const [addMovieToList] = useMutation(ADD_MOVIE_TO_LIST);
+
+  const onClickAddMovie = async (movie, listName) => {
+    try {
+      await addMovieToList({
+        variables: {
+          idMovie: movie.id,
+          listName,
+        },
+      });
+      toast.success("Se agregó la película a la lista");
+      refetchLists();
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
   return (
     <>
       <div
@@ -130,13 +152,10 @@ function ResultSearchAddToList({ data, listName }) {
             <p>{data.release_date}</p>
           </div>
         </div>
-        {/* TODO: Este botón mandará el nombre de la lista y el idMovie para que se agregue,
-        listName
-         hacer toast para exito y error */}
         <Button
           icon
           color="violet"
-          onClick={() => console.log(data.movie, listName)}
+          onClick={() => onClickAddMovie(data.movie, listName)}
         >
           <Icon name="plus" />
         </Button>

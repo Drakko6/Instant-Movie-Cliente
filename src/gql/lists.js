@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 // TODO: AGREGAR QUERIES Y MUTATIONS DE LISTAS
 
 export const ADD_EMPTY_LIST = gql`
-  mutation addEmptyList($listName: String) {
+  mutation addEmptyList($listName: String!) {
     addEmptyList(listName: $listName)
   }
 `;
