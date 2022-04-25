@@ -12,8 +12,6 @@ import HeaderProfile from "./HeaderProfile";
 import SettingsForm from "../SettingsForm";
 import Followers from "./Followers";
 import { useMediaQuery } from "react-responsive";
-import WhatsAppWidget from "react-whatsapp-widget";
-import "react-whatsapp-widget/dist/index.css";
 
 export default function Profile({ username, totalFavorites }) {
   const isMovil = useMediaQuery({ query: "(max-width: 600px)" });
@@ -63,64 +61,62 @@ export default function Profile({ username, totalFavorites }) {
   };
   return (
     <>
-      <>
-        {isMovil ? (
-          <Grid className="profile-movil">
-            <Grid.Column width={4} className="profile_left__movil">
-              <Image
-                src={getUser.avatar ? getUser.avatar : ImageNotFound}
-                avatar
-                onClick={() =>
-                  username === auth.username && handleModal("avatar")
-                }
-              />
-            </Grid.Column>
-            <Grid.Column width={12} className="profile_right__movil">
-              <HeaderProfile
-                username={username}
-                auth={auth}
-                handleModal={handleModal}
-              />
+      {isMovil ? (
+        <Grid className="profile-movil">
+          <Grid.Column width={4} className="profile_left__movil">
+            <Image
+              src={getUser.avatar ? getUser.avatar : ImageNotFound}
+              avatar
+              onClick={() =>
+                username === auth.username && handleModal("avatar")
+              }
+            />
+          </Grid.Column>
+          <Grid.Column width={12} className="profile_right__movil">
+            <HeaderProfile
+              username={username}
+              auth={auth}
+              handleModal={handleModal}
+            />
 
-              <div className="other">
-                <p className="name">{getUser.name}</p>
+            <div className="other">
+              <p className="name">{getUser.name}</p>
 
-                {getUser.description && (
-                  <p className="description">{getUser.description}</p>
-                )}
-              </div>
-            </Grid.Column>
+              {getUser.description && (
+                <p className="description">{getUser.description}</p>
+              )}
+            </div>
+          </Grid.Column>
+          <Followers username={username} totalFavorites={totalFavorites} />
+        </Grid>
+      ) : (
+        <Grid className="profile">
+          <Grid.Column width={5} className="profile_left">
+            <Image
+              src={getUser.avatar ? getUser.avatar : ImageNotFound}
+              avatar
+              onClick={() =>
+                username === auth.username && handleModal("avatar")
+              }
+            />
+          </Grid.Column>
+          <Grid.Column width={11} className="profile_right">
+            <HeaderProfile
+              username={username}
+              auth={auth}
+              handleModal={handleModal}
+            />
             <Followers username={username} totalFavorites={totalFavorites} />
-          </Grid>
-        ) : (
-          <Grid className="profile">
-            <Grid.Column width={5} className="profile_left">
-              <Image
-                src={getUser.avatar ? getUser.avatar : ImageNotFound}
-                avatar
-                onClick={() =>
-                  username === auth.username && handleModal("avatar")
-                }
-              />
-            </Grid.Column>
-            <Grid.Column width={11} className="profile_right">
-              <HeaderProfile
-                username={username}
-                auth={auth}
-                handleModal={handleModal}
-              />
-              <Followers username={username} totalFavorites={totalFavorites} />
-              <div className="other">
-                <p className="name">{getUser.name}</p>
+            <div className="other">
+              <p className="name">{getUser.name}</p>
 
-                {getUser.description && (
-                  <p className="description">{getUser.description}</p>
-                )}
-              </div>
-            </Grid.Column>
-          </Grid>
-        )}
-      </>
+              {getUser.description && (
+                <p className="description">{getUser.description}</p>
+              )}
+            </div>
+          </Grid.Column>
+        </Grid>
+      )}
 
       <ModalBasic show={showModal} setShow={setShowModal} title={titleModal}>
         {childrenModal}

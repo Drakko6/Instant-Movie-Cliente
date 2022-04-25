@@ -42,7 +42,7 @@ export default function Movies({ getMovies, recomendations, refetch }) {
           )}
 
           {isTablet && (
-            <Grid columns={2}>
+            <Grid columns={1}>
               {map(getMovies, (movie, index) => (
                 <Grid.Column key={index} className="movie-margin">
                   <PreviewMovie
@@ -56,7 +56,7 @@ export default function Movies({ getMovies, recomendations, refetch }) {
           )}
 
           {isDesktopOrLaptop && (
-            <Grid columns={4}>
+            <Grid columns={2}>
               {map(getMovies, (movie, index) => (
                 <Grid.Column key={index} className="movie-margin">
                   <PreviewMovie

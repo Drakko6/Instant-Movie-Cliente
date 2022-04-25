@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Search as SearchSU, Image } from "semantic-ui-react";
+import { Search as SearchSU, Image, Button, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import "./Search.scss";
 import { useQuery } from "@apollo/client";
@@ -10,7 +10,7 @@ import ModalMovie from "../../Modal/ModalMovie";
 import ModalMovieMovil from "../../Modal/ModalMovieMovil";
 import { useMediaQuery } from "react-responsive";
 
-export default function Search() {
+export default function Search({ addingToList, listName }) {
   const isMovil = useMediaQuery({ query: "(max-width: 600px)" });
 
   const [search, setSearch] = useState(null);
@@ -70,7 +70,13 @@ export default function Search() {
         onResultSelect={handleResultSelect}
         results={results}
         placeholder="Buscar Película..."
-        resultRenderer={(e) => <ResultSearch data={e} openMovie={openMovie} />}
+        resultRenderer={(e) =>
+          addingToList ? (
+            <ResultSearchAddToList data={e} listName={listName} />
+          ) : (
+            <ResultSearch data={e} openMovie={openMovie} />
+          )
+        }
         noResultsMessage="Sin resultados"
       />
 
@@ -98,14 +104,42 @@ export default function Search() {
 function ResultSearch({ data, openMovie }) {
   return (
     <>
-      <div className="search-users_item" onClick={() => openMovie(data)}>
+      <div className="search-movies_item" onClick={() => openMovie(data)}>
         {/* Abrir el modal con la info de la película */}
-        <Image src={data.avatar || ImageNotFound} />
-
         <div>
           <p>{data.title}</p>
           <p>{data.release_date}</p>
         </div>
+        <Image src={data.avatar || ImageNotFound} />
+      </div>
+    </>
+  );
+}
+function ResultSearchAddToList({ data, listName }) {
+  return (
+    <>
+      <div
+        className="search-movies_item"
+        style={{ justifyContent: "space-between" }}
+      >
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Image src={data.avatar || ImageNotFound} />
+
+          <div>
+            <p>{data.title}</p>
+            <p>{data.release_date}</p>
+          </div>
+        </div>
+        {/* TODO: Este botón mandará el nombre de la lista y el idMovie para que se agregue,
+        listName
+         hacer toast para exito y error */}
+        <Button
+          icon
+          color="violet"
+          onClick={() => console.log(data.movie, listName)}
+        >
+          <Icon name="plus" />
+        </Button>
       </div>
     </>
   );
