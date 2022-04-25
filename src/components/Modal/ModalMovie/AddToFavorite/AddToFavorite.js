@@ -127,7 +127,7 @@ export default function AddToFavorite({ movie }) {
                 className="addToFavorite__addToFavorites__option"
                 onClick={(e) => {
                   e.stopPropagation();
-                  console.log("Agregando");
+                  setShowModalAddList(true);
                 }}
               >
                 Agregar a lista
