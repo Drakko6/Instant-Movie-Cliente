@@ -6,7 +6,6 @@ import { Button } from "semantic-ui-react";
 import PasswordForm from "../PasswordForm";
 import EmailForm from "../EmailForm";
 import DescriptionForm from "../DescriptionForm";
-import BreedForm from "../BreedForm";
 
 import DeleteForm from "../DeleteForm";
 import AgeForm from "../AgeForm";
@@ -31,49 +30,6 @@ export default function SettingsForm({
       />
     );
   };
-  // const onChangeOwner = () => {
-  //   setTitleModal("Dinos a qué te dedicas");
-  //   setChildrenModal(
-  //     <OwnerForm
-  //       setShowModal={setShowModal}
-  //       currentOwner={userInfo.owner}
-  //       refetch={refetch}
-  //     />
-  //   );
-  // };
-
-  // const onChangeAddress = () => {
-  //   setTitleModal("Dinos tu dirección");
-  //   setChildrenModal(
-  //     <AddressForm
-  //       setShowModal={setShowModal}
-  //       currentAddress={userInfo.address}
-  //       refetch={refetch}
-  //     />
-  //   );
-  // };
-
-  // const onChangePhones = () => {
-  //   setTitleModal("¿En cuáles teléfonos te pueden contactar?");
-  //   setChildrenModal(
-  //     <PhoneForm
-  //       setShowModal={setShowModal}
-  //       currentPhones={userInfo.phone}
-  //       refetch={refetch}
-  //     />
-  //   );
-  // };
-
-  // const onChangeBreed = () => {
-  //   setTitleModal("Dinos a qué te dedicas");
-  //   setChildrenModal(
-  //     <BreedForm
-  //       setShowModal={setShowModal}
-  //       currentBreed={userInfo.breed}
-  //       refetch={refetch}
-  //     />
-  //   );
-  // };
 
   const onChangeDescription = () => {
     setTitleModal("Actualizar tu descripción");
@@ -96,17 +52,6 @@ export default function SettingsForm({
       />
     );
   };
-
-  // const onChangeContactEmail = () => {
-  //   setTitleModal("Actualizar tu correo de contacto");
-  //   setChildrenModal(
-  //     <ContactEmailForm
-  //       setShowModal={setShowModal}
-  //       currentContactEmail={userInfo.contactEmail}
-  //       refetch={refetch}
-  //     />
-  //   );
-  // };
 
   const onChangePassword = () => {
     setTitleModal("Cambia tu contraseña");
@@ -140,7 +85,6 @@ export default function SettingsForm({
       <div className="settings-form">
         <Button onClick={onChangePassword}>Cambiar contraseña</Button>
         <Button onClick={onChangeEmail}>Cambiar correo</Button>
-        {/* <Button onClick={onChangeAge}>Cambiar edad</Button> */}
         <Button onClick={onChangeDescription}>Cambiar descripción</Button>
         <Button onClick={onLogout} className="logout">
           Cerrar sesión
