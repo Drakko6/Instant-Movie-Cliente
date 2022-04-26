@@ -110,6 +110,7 @@ export default function ModalMovie({ show, setShow, movie }) {
   };
 
   if (loadingScore || loadingTotalScore) return null;
+  if (dataMyScore === undefined || dataTotalScore === undefined) return null;
   const { getScore } = dataMyScore;
   const { getTotalScore } = dataTotalScore;
 

@@ -1,13 +1,14 @@
 //Layouts
 
 import LayoutBasic from "../layouts/LayoutBasic";
+import LayoutBasic3 from "../layouts/LayoutBasic3";
 //Paginas
 import Home from "../pages/Home";
 import User from "../pages/User";
 import Error404 from "../pages/Error404";
 import Confirmation from "../pages/Confirmation";
 import Explore from "../pages/Explore";
-import Messenger from "../pages/Messenger";
+import ExploreLists from "../pages/ExploreLists";
 
 const routes = [
   {
@@ -16,10 +17,16 @@ const routes = [
     component: Home,
     exact: true,
   },
+  {
+    path: "/explore-lists",
+    layout: LayoutBasic,
+    component: ExploreLists,
+    exact: true,
+  },
 
   {
     path: "/explore",
-    layout: LayoutBasic,
+    layout: LayoutBasic3,
     component: Explore,
     exact: true,
   },
@@ -39,7 +46,7 @@ const routes = [
 
   {
     path: "/:username",
-    layout: LayoutBasic,
+    layout: LayoutBasic3,
     component: User,
     exact: true,
   },

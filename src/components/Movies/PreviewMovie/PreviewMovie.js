@@ -31,7 +31,7 @@ export default function PreviewMovie({ movie, isFavorite, refetch }) {
   });
 
   if (loadingCount) return null;
-
+  if (dataCount === undefined) return null;
   const { countLikes } = dataCount;
 
   const addToFavoritesAction = async () => {

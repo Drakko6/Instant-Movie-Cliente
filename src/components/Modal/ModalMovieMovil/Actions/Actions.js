@@ -67,8 +67,6 @@ export default function Actions({ movie }) {
   };
 
   const onAction = () => {
-    // isLike ? onDeleteLike : onAddLike
-
     if (!loadingAction) {
       if (isLike) {
         onDeleteLike();
@@ -79,6 +77,7 @@ export default function Actions({ movie }) {
   };
 
   if (loading || loadingCount) return null;
+  if (data === undefined || dataCount === undefined) return null;
   const { isLike } = data;
   const { countLikes } = dataCount;
 

@@ -7,8 +7,9 @@ import LogoIcon from "../../assets/png/logoIcon.png";
 import RightHeader from "./RightHeader";
 import Search from "./Search";
 import { useMediaQuery } from "react-responsive";
+import SearchUser from "./SearchUser";
 
-export default function Header() {
+export default function Header({ searchUsers }) {
   const isMovil = useMediaQuery({ query: "(max-width: 787px)" });
   // const isTablet = useMediaQuery({
   //   query: "(min-width: 768px)",
@@ -29,7 +30,7 @@ export default function Header() {
                 </Link>
               </Grid.Column>
               <Grid.Column width={10}>
-                <Search />
+                {searchUsers ? <SearchUser /> : <Search />}
               </Grid.Column>
               <Grid.Column width={3}>
                 <RightHeader />

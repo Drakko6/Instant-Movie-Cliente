@@ -11,6 +11,8 @@ import ModalMovie from "../../Modal/ModalMovie";
 import MyCarousel from "../../MyCarousel";
 import ModalMovieMovil from "../../Modal/ModalMovieMovil";
 import { useMediaQuery } from "react-responsive";
+import FollowedLists from "../../FollowedLists";
+import { GET_LISTS_FOLLOWED } from "../../../gql/lists";
 
 export default function Feed({ user }) {
   const isMovil = useMediaQuery({ query: "(max-width: 600px)" });
@@ -18,6 +20,13 @@ export default function Feed({ user }) {
   const [showModal, setShowModal] = useState(false);
   const [isMoving, setIsMoving] = useState(false);
   const [movieSelected, setMovieSelected] = useState(null);
+
+  // LISTAS DE SEGUIDOS
+  const {
+    data: dataLists,
+    loading: loadingLists,
+    refetch: refetchLists,
+  } = useQuery(GET_LISTS_FOLLOWED);
 
   //QUERY DE PELÍCULAS MÁS NUEVAS
   const { data, loading, refetch: reloadNewMovies } = useQuery(GET_LAST_MOVIES);
@@ -60,6 +69,7 @@ export default function Feed({ user }) {
     reloadGenre3Movies();
   }, []);
   if (
+    loadingLists ||
     loading ||
     loadingPopular ||
     loadingGenre1 ||
@@ -79,6 +89,7 @@ export default function Feed({ user }) {
       </div>
     );
   if (
+    dataLists === undefined ||
     data === undefined ||
     dataPopular === undefined ||
     dataGenre1 === undefined ||
@@ -91,6 +102,7 @@ export default function Feed({ user }) {
   const { getMoviesByGenre: moviesByGenre1 } = dataGenre1;
   const { getMoviesByGenre: moviesByGenre2 } = dataGenre2;
   const { getMoviesByGenre: moviesByGenre3 } = dataGenre3;
+  const { getListsFollowed: listsFolloded } = dataLists;
 
   const openMovie = (movie, e) => {
     if (isMoving) {
@@ -118,6 +130,8 @@ export default function Feed({ user }) {
         {getPopularMovies.length === 0 && (
           <h2 className="feed__noposts">No hay películas para ver aún</h2>
         )}
+
+        <FollowedLists lists={listsFolloded} refetchLists={refetchLists} />
 
         <h2 className="feed__noposts">
           Porque te gusta el género{" "}

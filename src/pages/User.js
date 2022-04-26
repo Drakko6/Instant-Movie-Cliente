@@ -5,7 +5,7 @@ import { size } from "lodash";
 import { useParams } from "react-router-dom";
 import Profile from "../components/User/Profile";
 import Movies from "../components/Movies";
-import { Grid } from "semantic-ui-react";
+import { Dimmer, Grid, Loader } from "semantic-ui-react";
 import Lists from "../components/Lists";
 import { GET_LISTS_WITH_MOVIE_INFO } from "../gql/lists";
 import "./User.scss";
@@ -37,7 +37,19 @@ export default function User() {
     };
   }, [startPolling, stopPolling, startPollingLists, stopPollingLists]);
 
-  if (loading || loadingLists) return null;
+  if (loading || loadingLists)
+    return (
+      <div style={{ width: "100vw", height: "100vh" }}>
+        <Dimmer
+          style={{
+            backgroundColor: "rgba(0,0, 0, 0)",
+          }}
+          active
+        >
+          <Loader size="massive" />
+        </Dimmer>
+      </div>
+    );
   if (data === undefined || dataLists === undefined) return null;
   const { getFavorites } = data;
   const { getListsWithMovieInfo } = dataLists;

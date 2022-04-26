@@ -42,38 +42,11 @@ export default function Home() {
         />
       ) : (
         <>
-          {/* {isDesktopOrLaptop && ( */}
           <Grid className="home">
             <Grid.Column className="home__left" width={16}>
               <Feed user={getUser} />
             </Grid.Column>
           </Grid>
-          {/* )} */}
-
-          {/* {isTablet && (
-            <Grid className="home">
-               <Grid.Column className="home__left" width={4}>
-                <SideMenu />
-              </Grid.Column> 
-              <Grid.Column className="home__left" width={16}>
-                <FeedTablet user={getUser} />
-              </Grid.Column>
-            </Grid>
-          )} */}
-
-          {/* {isMovil && (
-            <Grid className="home-movil">
-              <Grid.Row className="home-movil_top">
-                <SideMenuMovil />
-              </Grid.Row> 
-               <Grid.Row className="home-movil_top">
-                <UsersNotFollowedsMovil user={auth} />
-              </Grid.Row>
-              <Grid.Row>
-                <FeedMovil />
-              </Grid.Row>
-            </Grid>
-          )} */}
         </>
       )}
     </>

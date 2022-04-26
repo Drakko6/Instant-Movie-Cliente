@@ -7,7 +7,7 @@ import Movies from "../../components/Movies";
 
 import { useMediaQuery } from "react-responsive";
 
-export default function Home() {
+export default function Explore() {
   const isMovil = useMediaQuery({ query: "(max-width: 600px)" });
   const isTablet = useMediaQuery({
     query: "(min-width: 601px) and (max-width: 1099px)",

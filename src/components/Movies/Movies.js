@@ -27,14 +27,14 @@ export default function Movies({ getMovies, recomendations, refetch }) {
                 color: "aliceblue",
               }}
             >
-              Conoce más
+              A otros usuarios parecidos a ti les gustan:
             </h1>
           ) : (
             <h1 style={{ color: "aliceblue" }}>Películas favoritas</h1>
           )}
 
           {isMovil && (
-            <Grid columns={1} className="grid-movies">
+            <Grid columns={1} className="grid-movies" style={{ marginLeft: 0 }}>
               {map(getMovies, (movie, index) => (
                 <Grid.Column key={index} className="movie-movil">
                   <PreviewMovie
@@ -48,7 +48,7 @@ export default function Movies({ getMovies, recomendations, refetch }) {
           )}
 
           {isTablet && (
-            <Grid columns={recomendations ? 2 : 1}>
+            <Grid columns={recomendations ? 2 : 1} style={{ marginLeft: 0 }}>
               {map(getMovies, (movie, index) => (
                 <Grid.Column key={index} className="movie-margin">
                   <PreviewMovie
@@ -62,7 +62,7 @@ export default function Movies({ getMovies, recomendations, refetch }) {
           )}
 
           {isDesktopOrLaptop && (
-            <Grid columns={recomendations ? 4 : 2}>
+            <Grid columns={recomendations ? 4 : 2} style={{ marginLeft: 0 }}>
               {map(getMovies, (movie, index) => (
                 <Grid.Column key={index} className="movie-margin">
                   <PreviewMovie

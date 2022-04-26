@@ -9,25 +9,26 @@ import ModalMovie from "../../Modal/ModalMovie";
 import ModalBasic from "../../Modal/ModalBasic";
 import Search from "../../Header/Search/Search";
 import { useMutation } from "@apollo/client";
-import { DELETE_MOVIE_FROM_LIST } from "../../../gql/lists";
+import { COPY_LIST, DELETE_MOVIE_FROM_LIST } from "../../../gql/lists";
 import { toast } from "react-toastify";
 import NewListForm from "../../NewListForm";
+import { Link } from "react-router-dom";
 
-export default function ListMovie({ list, refetchLists }) {
+export default function ListMovie({
+  list,
+  refetchLists,
+  refetchMyLists,
+  editable,
+}) {
   const [showModal, setShowModal] = useState(false);
   const [showModalAddList, setShowModalAddList] = useState(false);
   const [showModalEditList, setShowModalEditList] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   const [deleteMovieFromList] = useMutation(DELETE_MOVIE_FROM_LIST);
+  const [copyList] = useMutation(COPY_LIST);
 
   const isMovil = useMediaQuery({ query: "(max-width: 600px)" });
-  const isTablet = useMediaQuery({
-    query: "(min-width: 601px) and (max-width: 1099px)",
-  });
-  const isDesktopOrLaptop = useMediaQuery({
-    query: "(min-width: 1100px)",
-  });
 
   const showMovie = (movie) => {
     setSelectedMovie(movie);
@@ -50,6 +51,22 @@ export default function ListMovie({ list, refetchLists }) {
     }
   };
 
+  const onCopyList = async () => {
+    try {
+      await copyList({
+        variables: {
+          listName: list.name,
+          username: list.idUser.username,
+        },
+      });
+      refetchMyLists();
+      refetchLists();
+      toast.success("Lista copiada a las tuyas", { position: "bottom-right" });
+    } catch (error) {
+      toast.error(error.message, { position: "bottom-right" });
+    }
+  };
+
   return (
     <>
       <Card className="list-movie">
@@ -57,24 +74,48 @@ export default function ListMovie({ list, refetchLists }) {
           <Card.Header className="list-movie__header">
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <div style={{ display: "flex", alignItems: "center" }}>
-                <Button
-                  icon
-                  color="facebook"
-                  onClick={() => setShowModalEditList(true)}
-                >
-                  <Icon name="edit" />
-                </Button>
-                <p>{list.name}</p>
+                {editable && (
+                  <Button
+                    icon
+                    color="facebook"
+                    onClick={() => setShowModalEditList(true)}
+                  >
+                    <Icon name="edit" />
+                  </Button>
+                )}
+
+                <div>
+                  <p style={{ margin: 0 }}>{list.name}</p>
+
+                  {!editable && (
+                    <Link
+                      className="search-users_item"
+                      to={`/${list.idUser.username}`}
+                    >
+                      <p
+                        style={{
+                          margin: 0,
+                          color: "cornflowerblue",
+                          fontSize: "14px",
+                        }}
+                      >
+                        {list.idUser.username}
+                      </p>
+                    </Link>
+                  )}
+                </div>
               </div>
 
               <Button
                 icon
                 labelPosition="right"
                 color="violet"
-                onClick={() => setShowModalAddList(true)}
+                onClick={() =>
+                  editable ? setShowModalAddList(true) : onCopyList()
+                }
               >
-                <Icon name="plus" />
-                Añadir película
+                <Icon name={editable ? "plus" : "copy"} />
+                {editable ? "Añadir película" : "Copiar"}
               </Button>
             </div>
           </Card.Header>
@@ -120,16 +161,18 @@ export default function ListMovie({ list, refetchLists }) {
                         marginRight: 10,
                       }}
                     >
-                      <Icon
-                        className="deleteIcon"
-                        name="delete"
-                        color="red"
-                        size="large"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onDeleteMovie(movie);
-                        }}
-                      />
+                      {editable && (
+                        <Icon
+                          className="deleteIcon"
+                          name="delete"
+                          color="red"
+                          size="large"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onDeleteMovie(movie);
+                          }}
+                        />
+                      )}
                     </div>
                   </div>
                 </Feed.Content>

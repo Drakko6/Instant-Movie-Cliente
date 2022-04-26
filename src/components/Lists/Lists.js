@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import "./Lists.scss";
-import { map } from "lodash";
 import { Button, Icon } from "semantic-ui-react";
 
-import { useMediaQuery } from "react-responsive";
 import ListMovie from "./ListMovie";
 import ModalBasic from "../Modal/ModalBasic";
 import NewListForm from "../NewListForm";
@@ -11,13 +9,6 @@ import NewListForm from "../NewListForm";
 export default function Lists({ lists, refetchLists }) {
   const [showModalAddList, setShowModalAddList] = useState(false);
 
-  const isMovil = useMediaQuery({ query: "(max-width: 600px)" });
-  const isTablet = useMediaQuery({
-    query: "(min-width: 601px) and (max-width: 1099px)",
-  });
-  const isDesktopOrLaptop = useMediaQuery({
-    query: "(min-width: 1100px)",
-  });
   return (
     <div className="lists">
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -37,7 +28,12 @@ export default function Lists({ lists, refetchLists }) {
       </div>
 
       {lists.map((list) => (
-        <ListMovie key={list.id} list={list} refetchLists={refetchLists} />
+        <ListMovie
+          key={list.id}
+          list={list}
+          refetchLists={refetchLists}
+          editable
+        />
       ))}
 
       {showModalAddList && (

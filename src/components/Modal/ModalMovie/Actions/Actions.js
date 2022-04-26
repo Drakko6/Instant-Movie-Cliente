@@ -77,6 +77,8 @@ export default function Actions({ movie }) {
   };
 
   if (loading || loadingCount) return null;
+  if (data === undefined || dataCount === undefined) return null;
+
   const { isLike } = data;
   const { countLikes } = dataCount;
 

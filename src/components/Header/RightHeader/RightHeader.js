@@ -32,13 +32,11 @@ export default function RightHeader() {
             <span className="tooltiptext">Explorar</span>
           </Icon>
         </Link>
-        {/* <Icon
-          name="plus"
-          style={{ cursor: "pointer" }}
-          onClick={() => setShowModal(true)}
-        >
-          <span className="tooltiptext">Publicar</span>
-        </Icon> */}
+        <Link to="/explore-lists">
+          <Icon name="th list" style={{ cursor: "pointer" }}>
+            <span className="tooltiptext">Explorar listas</span>
+          </Icon>
+        </Link>
         <Link to={`/${auth.username}`} className="link-avatar">
           <Image src={getUser.avatar ? getUser.avatar : ImageNotFound} avatar />
           <span className="tooltiptext">Cuenta</span>

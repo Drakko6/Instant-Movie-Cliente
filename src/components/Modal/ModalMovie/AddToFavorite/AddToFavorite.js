@@ -88,6 +88,7 @@ export default function AddToFavorite({ movie }) {
   };
 
   if (loading || loadingLists) return null;
+  if (data === undefined || dataLists === undefined) return null;
   const { isFavorite } = data;
   const { getListsWithMovieInfo: lists } = dataLists;
 
