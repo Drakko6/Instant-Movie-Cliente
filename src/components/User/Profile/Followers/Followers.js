@@ -63,6 +63,7 @@ export default function Followers({ username, totalFavorites, totalLists }) {
   ]);
 
   if (loadingFollowers || loadingFolloweds) return null;
+  if (dataFolloweds === undefined || dataFolloweds === undefined) return null;
   const { getFollowers } = dataFollowers;
   const { getFolloweds } = dataFolloweds;
 
