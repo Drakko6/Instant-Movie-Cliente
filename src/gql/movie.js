@@ -1,5 +1,24 @@
 import { gql } from "@apollo/client";
 
+export const GET_MOVIES_CONTENT_BASED = gql`
+  query getMoviesByContentBased($ids: [Int]) {
+    getMoviesByContentBased(ids: $ids) {
+      id
+      title
+      original_title
+      genres {
+        name
+        id
+      }
+      release_date
+      poster_path
+      backdrop_path
+      overview
+      id_movie
+    }
+  }
+`;
+
 export const GET_RECOMMENDED_MOVIES = gql`
   query getRecommendedMovies {
     getRecommendedMovies {
@@ -14,6 +33,7 @@ export const GET_RECOMMENDED_MOVIES = gql`
       poster_path
       backdrop_path
       overview
+      id_movie
     }
   }
 `;
@@ -32,6 +52,7 @@ export const GET_LAST_MOVIES = gql`
       poster_path
       backdrop_path
       overview
+      id_movie
     }
   }
 `;
@@ -50,6 +71,7 @@ export const GET_POPULAR_MOVIES = gql`
       poster_path
       backdrop_path
       overview
+      id_movie
     }
   }
 `;
@@ -68,6 +90,7 @@ export const SEARCH_MOVIES = gql`
       poster_path
       backdrop_path
       overview
+      id_movie
     }
   }
 `;
@@ -86,6 +109,7 @@ export const GET_MOVIES_BY_GENRE = gql`
       poster_path
       backdrop_path
       overview
+      id_movie
     }
   }
 `;

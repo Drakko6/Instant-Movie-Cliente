@@ -4,16 +4,20 @@ import { Modal, Grid, Button, Icon } from "semantic-ui-react";
 import CommentForm from "./CommentForm";
 import Comments from "./Comments";
 import Actions from "./Actions";
-import { URL_API, API } from "../../../utils/constants";
+import { URL_API, API, URL_API_2 } from "../../../utils/constants";
 import useFetch from "../../../hooks/useFetch";
 import ModalVideo from "../../ModalVideo/ModalVideo";
 import AddToFavorite from "./AddToFavorite";
 import { Rating } from "react-simple-star-rating";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_SCORE, GET_TOTAL_SCORE, SCORE_MOVIE } from "../../../gql/score";
+import axios from "axios";
+import useAuth from "../../../hooks/useAuth";
 
 export default function ModalMovie({ show, setShow, movie }) {
   const [scoreMovie] = useMutation(SCORE_MOVIE);
+
+  const { auth } = useAuth();
 
   const {
     data: dataMyScore,
@@ -101,6 +105,36 @@ export default function ModalMovie({ show, setShow, movie }) {
           },
         },
       });
+
+      // si ya está la calificación -> Update
+      if (getScore > 0) {
+        await axios.put(
+          `${URL_API_2}/registros/${auth.username}/${movie.id_movie}`,
+          {
+            score: score / 10,
+          }
+        );
+      } else {
+        // si no está --> crear una
+        //post a API de Marco
+        axios
+          .post(
+            `${URL_API_2}/registros/`,
+            {
+              user_id: auth.username,
+              movie_id: movie.id_movie,
+              score: score / 10,
+            },
+            {
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
+              },
+            }
+          )
+          .then((response) => {})
+          .catch((error) => console.log(error));
+      }
 
       refetch();
       refetchTotalScore();

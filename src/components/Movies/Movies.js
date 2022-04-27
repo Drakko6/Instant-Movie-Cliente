@@ -1,12 +1,21 @@
 import React from "react";
 import "./Movie.scss";
 import { map } from "lodash";
-import { Grid } from "semantic-ui-react";
+import { Grid, Dimmer, Loader, Button, Icon } from "semantic-ui-react";
 import PreviewMovie from "./PreviewMovie";
 
 import { useMediaQuery } from "react-responsive";
 
-export default function Movies({ getMovies, recomendations, refetch }) {
+export default function Movies({
+  getMovies,
+  recomendations,
+  refetch,
+  contentBased,
+  idsMoviesContent,
+  loadingContentBased,
+  perfil,
+  setShowModal,
+}) {
   const isMovil = useMediaQuery({ query: "(max-width: 600px)" });
   const isTablet = useMediaQuery({
     query: "(min-width: 601px) and (max-width: 1099px)",
@@ -17,22 +26,41 @@ export default function Movies({ getMovies, recomendations, refetch }) {
 
   return (
     <div className="movies">
+      {recomendations ? (
+        <h1
+          style={{
+            marginBottom: "30px",
+            marginTop: "30px",
+            color: "aliceblue",
+          }}
+        >
+          A otros usuarios parecidos a ti les gustan:
+        </h1>
+      ) : contentBased ? (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Button
+            icon
+            disabled={perfil.length === 0}
+            onClick={() => setShowModal(true)}
+          >
+            <Icon name="info circle" color="blue" size="large" />
+          </Button>
+
+          <h1
+            style={{
+              marginBottom: "30px",
+              marginTop: "30px",
+              color: "aliceblue",
+            }}
+          >
+            Te recomendamos (Cortesía de Marco):
+          </h1>
+        </div>
+      ) : (
+        <h1 style={{ color: "aliceblue" }}>Películas favoritas</h1>
+      )}
       {getMovies && getMovies.length > 0 ? (
         <>
-          {recomendations ? (
-            <h1
-              style={{
-                marginBottom: "30px",
-                marginTop: "30px",
-                color: "aliceblue",
-              }}
-            >
-              A otros usuarios parecidos a ti les gustan:
-            </h1>
-          ) : (
-            <h1 style={{ color: "aliceblue" }}>Películas favoritas</h1>
-          )}
-
           {isMovil && (
             <Grid columns={1} className="grid-movies" style={{ marginLeft: 0 }}>
               {map(getMovies, (movie, index) => (
@@ -62,7 +90,7 @@ export default function Movies({ getMovies, recomendations, refetch }) {
           )}
 
           {isDesktopOrLaptop && (
-            <Grid columns={recomendations ? 4 : 2} style={{ marginLeft: 0 }}>
+            <Grid columns={2} style={{ marginLeft: 0 }}>
               {map(getMovies, (movie, index) => (
                 <Grid.Column key={index} className="movie-margin">
                   <PreviewMovie
@@ -81,6 +109,28 @@ export default function Movies({ getMovies, recomendations, refetch }) {
             <h1 style={{ marginBottom: "50px", color: "aliceblue" }}>
               No hay sugerencias aún
             </h1>
+          ) : contentBased ? (
+            <>
+              {loadingContentBased ? (
+                <Dimmer
+                  active
+                  style={{
+                    backgroundColor: "rgba(0,0, 0, 0)",
+                    alignItems: "start",
+                  }}
+                >
+                  <Loader size="huge" style={{ top: "25%" }} />
+                </Dimmer>
+              ) : (
+                <>
+                  {idsMoviesContent.length === 0 && (
+                    <h1 style={{ marginTop: "30px", color: "aliceblue" }}>
+                      No hay sugerencias aún
+                    </h1>
+                  )}
+                </>
+              )}
+            </>
           ) : (
             <h1 style={{ color: "aliceblue" }}>
               El usuario no tiene películas favoritas
