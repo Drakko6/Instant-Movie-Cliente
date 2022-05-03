@@ -85,7 +85,7 @@ export default function ListMovie({
                 )}
 
                 <div>
-                  <p style={{ margin: 0 }}>{list.name}</p>
+                  <p style={{ margin: 0, height: 50 }}>{list.name}</p>
 
                   {!editable && (
                     <Link

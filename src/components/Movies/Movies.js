@@ -38,13 +38,15 @@ export default function Movies({
         </h1>
       ) : contentBased ? (
         <div style={{ display: "flex", alignItems: "center" }}>
-          <Button
+          <Icon
+            name="info circle"
+            color="teal"
+            size="large"
+            style={{ cursor: perfil.length > 0 && "pointer" }}
             icon
             disabled={perfil.length === 0}
             onClick={() => setShowModal(true)}
-          >
-            <Icon name="info circle" color="blue" size="large" />
-          </Button>
+          />
 
           <h1
             style={{

@@ -81,7 +81,8 @@ export default function Explore() {
 
       setIdsMoviesContent(data.Peliculas.map((objeto) => objeto.id));
 
-      setPerfil(data.Perfil.slice(0, 15));
+      setPerfil(data.Perfil.slice(0, 16));
+      console.log(perfil);
     } catch (error) {
       toast.error(error);
 
@@ -197,12 +198,12 @@ export default function Explore() {
                     label: "Puntuación de género",
                     data: perfil.map((object) => object.Total),
                     backgroundColor: [
-                      "rgba(255, 99, 132, 0.2)",
-                      "rgba(54, 162, 235, 0.2)",
-                      "rgba(255, 206, 86, 0.2)",
-                      "rgba(75, 192, 192, 0.2)",
-                      "rgba(153, 102, 255, 0.2)",
-                      "rgba(255, 159, 64, 0.2)",
+                      "rgba(255, 99, 132, 0.3)",
+                      "rgba(54, 162, 235, 0.3)",
+                      "rgba(255, 206, 86, 0.3)",
+                      "rgba(75, 192, 192, 0.3)",
+                      "rgba(153, 102, 255, 0.3)",
+                      "rgba(255, 159, 64, 0.3)",
                     ],
                     borderColor: [
                       "rgba(255, 99, 132, 1)",
@@ -215,6 +216,46 @@ export default function Explore() {
                     borderWidth: 1,
                   },
                 ],
+              }}
+              options={{
+                plugins: {
+                  // 'legend' now within object 'plugins {}'
+                  legend: {
+                    labels: {
+                      color: "white", // not 'fontColor:' anymore
+                      // fontSize: 18  // not 'fontSize:' anymore
+                      font: {
+                        size: 18, // 'size' now within object 'font {}'
+                      },
+                    },
+                  },
+                },
+                scales: {
+                  y: {
+                    // not 'yAxes: [{' anymore (not an array anymore)
+                    ticks: {
+                      color: "aliceblue", // not 'fontColor:' anymore
+                      // fontSize: 18,
+                      font: {
+                        size: 16, // 'size' now within object 'font {}'
+                      },
+                      stepSize: 1,
+                      beginAtZero: true,
+                    },
+                  },
+                  x: {
+                    // not 'xAxes: [{' anymore (not an array anymore)
+                    ticks: {
+                      color: "white", // not 'fontColor:' anymore
+                      //fontSize: 14,
+                      font: {
+                        size: 14, // 'size' now within object 'font {}'
+                      },
+                      stepSize: 1,
+                      beginAtZero: true,
+                    },
+                  },
+                },
               }}
             />
           </div>
