@@ -59,8 +59,6 @@ const Chat = ({ onClose }) => {
     "Animación",
   ];
 
-  const calificaciones = ["5", "6", "7", "8", "9", "10"];
-
   const {
     data: moviesContent,
     loading: loadingMoviesContent,
@@ -77,7 +75,6 @@ const Chat = ({ onClose }) => {
         generos: messages[1].message,
         actores: messages[3].message,
         directores: messages[5].message,
-        calificaciones: messages[7].message,
       });
 
       if (data.mensaje) {
@@ -113,16 +110,12 @@ const Chat = ({ onClose }) => {
             ? "Muy bien, ¿qué actores/actrices te gusta ver? (Separa por coma cada uno) (skip para saltar) "
             : messages.length === 3
             ? "Excelente, ¿tienes algún director o directores favoritos? Escríbelos (Separa por coma cada uno) (skip para saltar)"
-            : messages.length === 5
-            ? "Vale, por último, qué calificación quieres que tengan las películas (skip para saltar)"
-            : "Dame un momento...\n...",
+            : "Ok, Dame un momento...\n...",
 
         sender:
+          messages.length === 1 ||
+          messages.length === 3 ||
           messages.length === 5
-            ? "Calificaciones"
-            : messages.length === 1 ||
-              messages.length === 3 ||
-              messages.length === 7
             ? "Bot"
             : "Local",
       },
@@ -133,7 +126,7 @@ const Chat = ({ onClose }) => {
   };
 
   useEffect(() => {
-    if (messages.length === 9) {
+    if (messages.length === 7) {
       fetchRecommendationByChatBot();
     }
   }, [messages]);
@@ -146,7 +139,7 @@ const Chat = ({ onClose }) => {
   }
 
   useEffect(() => {
-    if (messages.length === 9 && moviesByChat.length > 0) {
+    if (messages.length === 7 && moviesByChat.length > 0) {
       console.log(moviesByChat);
       setMessages([
         ...messages,
@@ -172,13 +165,6 @@ const Chat = ({ onClose }) => {
   };
 
   const construirStringGeneros = (value) => {
-    if (!msgInputValue.includes(value)) {
-      setMsgInputValue(msgInputValue + value);
-    } else {
-      setMsgInputValue(msgInputValue.replace(value, ""));
-    }
-  };
-  const construirStringCalificaciones = (value) => {
     if (!msgInputValue.includes(value)) {
       setMsgInputValue(msgInputValue + value);
     } else {
@@ -235,23 +221,6 @@ const Chat = ({ onClose }) => {
                         onClick={() => construirStringGeneros(genero + ",")}
                       >
                         {genero}
-                      </SemButton>
-                    ))}
-                  </div>
-                </Message.CustomContent>
-              )}
-              {m.sender === "Calificaciones" && (
-                <Message.CustomContent>
-                  {m.message}
-                  <div style={{ display: "flex", flexWrap: "wrap" }}>
-                    {calificaciones.map((cal) => (
-                      <SemButton
-                        size="mini"
-                        color="facebook"
-                        style={{ width: 100, marginBottom: 5 }}
-                        onClick={() => construirStringCalificaciones(cal + ",")}
-                      >
-                        {cal}
                       </SemButton>
                     ))}
                   </div>

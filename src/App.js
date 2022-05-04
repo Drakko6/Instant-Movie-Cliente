@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { ApolloProvider } from "@apollo/client";
 import client from "./config/apollo";
-// import Auth from "./pages/Auth";
+import Auth from "./pages/Auth";
 import { ToastContainer } from "react-toastify";
 
 import Navigation from "./routes/Navigation";
@@ -52,10 +52,7 @@ export default function App() {
   return (
     <ApolloProvider client={client}>
       <AuthContext.Provider value={authData}>
-        {
-          // !auth ? <Auth /> :
-          <Navigation auth={auth} />
-        }
+        {!auth ? <Auth /> : <Navigation auth={auth} />}
         <ToastContainer
           position="top-right"
           autoClose={5000}
