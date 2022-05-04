@@ -186,6 +186,11 @@ const Chat = ({ onClose }) => {
     }
   };
 
+  const [sendDisabled, setSendDisabled] = useState(true);
+  useEffect(() => {
+    setSendDisabled(msgInputValue.length === 0);
+  }, [msgInputValue]);
+
   return (
     <div
       style={{
@@ -263,6 +268,7 @@ const Chat = ({ onClose }) => {
           />
         </MessageList>
         <MessageInput
+          sendDisabled={sendDisabled}
           attachButton={false}
           placeholder="Tu respuesta"
           onSend={handleSend}
