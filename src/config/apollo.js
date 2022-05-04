@@ -4,8 +4,9 @@ import { setContext } from "apollo-link-context";
 import { getToken } from "../utils/token";
 
 const httpLink = createUploadLink({
-  uri: "https://instant-movie.herokuapp.com/",
+  // uri: "https://instant-movie.herokuapp.com/",
   // uri: "http://localhost:4000",
+  uri: "http://ec2-54-235-55-60.compute-1.amazonaws.com/",
 });
 
 const authLink = setContext((_, { headers }) => {
