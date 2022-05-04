@@ -37,7 +37,13 @@ export default function Movies({
           A otros usuarios parecidos a ti les gustan:
         </h1>
       ) : contentBased ? (
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Icon
             name="info circle"
             color="teal"
@@ -55,7 +61,7 @@ export default function Movies({
               color: "aliceblue",
             }}
           >
-            Te recomendamos (Cortesía de Marco):
+            Por los géneros que calificaste:
           </h1>
         </div>
       ) : (
