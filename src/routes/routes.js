@@ -19,23 +19,17 @@ const routes = [
   },
   {
     path: "/explore-lists",
-    layout: LayoutBasic,
+    layout: LayoutBasic3,
     component: ExploreLists,
     exact: true,
   },
 
   {
     path: "/explore",
-    layout: LayoutBasic3,
+    layout: LayoutBasic,
     component: Explore,
     exact: true,
   },
-  // {
-  //   path: "/messenger",
-  //   layout: LayoutBasic,
-  //   component: Messenger,
-  //   exact: true,
-  // },
 
   {
     path: "/user/confirm/:token",

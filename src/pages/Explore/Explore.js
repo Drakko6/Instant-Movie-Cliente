@@ -15,6 +15,9 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import ModalBasic from "../../components/Modal/ModalBasic";
 import { Bar } from "react-chartjs-2";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRobot } from "@fortawesome/free-solid-svg-icons";
+import Chat from "../../components/Chat/Chat";
 
 import {
   Chart as ChartJS,
@@ -37,6 +40,8 @@ ChartJS.register(
 
 export default function Explore() {
   const { auth } = useAuth();
+  const [showChat, setShowChat] = useState(false);
+
   const [showModal, setShowModal] = useState(false);
   const [loadingContentBased, setLoadingContentBased] = useState(false);
   const [idsMoviesContent, setIdsMoviesContent] = useState([]);
@@ -119,6 +124,33 @@ export default function Explore() {
     <>
       {isDesktopOrLaptop && (
         <Grid className="explore">
+          <div
+            style={{
+              position: "absolute",
+              right: -100,
+              bottom: 10,
+              zIndex: 2000,
+              width: 500,
+            }}
+          >
+            {showChat ? (
+              <div style={{ marginRight: 125 }}>
+                <Chat onClose={() => setShowChat(false)} />
+              </div>
+            ) : (
+              <Button
+                circular
+                icon
+                size="big"
+                onClick={() => setShowChat(true)}
+                color="purple"
+              >
+                <FontAwesomeIcon icon={faRobot} />
+
+                <p style={{ marginLeft: 5 }}>Pide una recomendación</p>
+              </Button>
+            )}
+          </div>
           <Grid.Column className="explore__left" width={8}>
             <Movies
               refetch={refetch}
@@ -142,6 +174,33 @@ export default function Explore() {
 
       {isTablet && (
         <Grid className="explore">
+          <div
+            style={{
+              position: "absolute",
+              right: -100,
+              bottom: 10,
+              zIndex: 2000,
+              width: 500,
+            }}
+          >
+            {showChat ? (
+              <div style={{ marginRight: 125 }}>
+                <Chat onClose={() => setShowChat(false)} />
+              </div>
+            ) : (
+              <Button
+                circular
+                icon
+                size="big"
+                onClick={() => setShowChat(true)}
+                color="purple"
+              >
+                <FontAwesomeIcon icon={faRobot} />
+
+                <p style={{ marginLeft: 5 }}>Pide una recomendación</p>
+              </Button>
+            )}
+          </div>
           <Grid.Column className="explore__left" width={8}>
             <Movies
               refetch={refetch}
@@ -163,6 +222,33 @@ export default function Explore() {
 
       {isMovil && (
         <Grid className="explore-movil">
+          <div
+            style={{
+              position: "absolute",
+              right: -100,
+              bottom: 10,
+              zIndex: 2000,
+              width: 500,
+            }}
+          >
+            {showChat ? (
+              <div style={{ marginRight: 125 }}>
+                <Chat onClose={() => setShowChat(false)} />
+              </div>
+            ) : (
+              <Button
+                circular
+                icon
+                size="big"
+                onClick={() => setShowChat(true)}
+                color="purple"
+              >
+                <FontAwesomeIcon icon={faRobot} />
+
+                <p style={{ marginLeft: 5 }}>Pide una recomendación</p>
+              </Button>
+            )}
+          </div>
           <Grid.Row>
             <Movies
               refetch={refetch}

@@ -4,7 +4,7 @@ import AddToFavorite from "../Modal/ModalMovie/AddToFavorite";
 import Actions from "../Modal/ModalMovieMovil/Actions";
 import "./FeedMovie.scss";
 
-export default function FeedMovie({ movie, openMovie }) {
+export default function FeedMovie({ movie, openMovie, isInBot }) {
   return (
     <List.Item className="feed__item" key={movie.id}>
       <div>
@@ -21,15 +21,23 @@ export default function FeedMovie({ movie, openMovie }) {
                 <div>
                   <h3 style={{ color: "white" }}>{movie.title} </h3>
                   <p>
-                    <span style={{ fontSize: "small", opacity: 0.6 }}>
+                    <span
+                      style={{
+                        fontSize: "small",
+                        opacity: isInBot ? 1 : 0.6,
+                        color: "white",
+                      }}
+                    >
                       {movie.release_date}
                     </span>
                   </p>
                 </div>
 
-                <div>
-                  <AddToFavorite movie={movie} />
-                </div>
+                {!isInBot && (
+                  <div>
+                    <AddToFavorite movie={movie} />
+                  </div>
+                )}
               </div>
             </div>
             <div
@@ -44,7 +52,8 @@ export default function FeedMovie({ movie, openMovie }) {
           </div>
         </List.Content>
       </div>
-      <Actions movie={movie} />
+
+      {!isInBot && <Actions movie={movie} />}
     </List.Item>
   );
 }

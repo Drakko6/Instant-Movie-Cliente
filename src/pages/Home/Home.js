@@ -1,27 +1,19 @@
 import React, { useState } from "react";
-import { Grid } from "semantic-ui-react";
+import { Button, Grid } from "semantic-ui-react";
 import "./Home.scss";
 import Feed from "../../components/Home/Feed";
-import FeedTablet from "../../components/Home/FeedTablet";
-import FeedMovil from "../../components/Home/FeedMovil";
 import FirstPreferences from "../../components/Home/FirstPreferences";
-
-import { useMediaQuery } from "react-responsive";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRobot } from "@fortawesome/free-solid-svg-icons";
 import { useQuery } from "@apollo/client";
 import { GET_USER } from "../../gql/user";
 
 import useAuth from "../../hooks/useAuth";
+import Chat from "../../components/Chat/Chat";
 
 export default function Home() {
-  const isMovil = useMediaQuery({ query: "(max-width: 600px)" });
-  const isTablet = useMediaQuery({
-    query: "(min-width: 601px) and (max-width: 1099px)",
-  });
-  const isDesktopOrLaptop = useMediaQuery({
-    query: "(min-width: 1100px)",
-  });
-
   const [preferencesUploaded, setPreferencesUploaded] = useState(false);
+  const [showChat, setShowChat] = useState(false);
 
   const { auth } = useAuth();
 
@@ -43,6 +35,33 @@ export default function Home() {
       ) : (
         <>
           <Grid className="home">
+            <div
+              style={{
+                position: "absolute",
+                right: -100,
+                bottom: 10,
+                zIndex: 2000,
+                width: 500,
+              }}
+            >
+              {showChat ? (
+                <div style={{ marginRight: 125 }}>
+                  <Chat onClose={() => setShowChat(false)} />
+                </div>
+              ) : (
+                <Button
+                  circular
+                  icon
+                  size="big"
+                  onClick={() => setShowChat(true)}
+                  color="purple"
+                >
+                  <FontAwesomeIcon icon={faRobot} />
+
+                  <p style={{ marginLeft: 5 }}>Pide una recomendación</p>
+                </Button>
+              )}
+            </div>
             <Grid.Column className="home__left" width={16}>
               <Feed user={getUser} />
             </Grid.Column>

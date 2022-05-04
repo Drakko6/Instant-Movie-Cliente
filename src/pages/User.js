@@ -1,17 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_FAVORITES } from "../gql/favorites";
-import { size } from "lodash";
 import { useParams } from "react-router-dom";
 import Profile from "../components/User/Profile";
 import Movies from "../components/Movies";
-import { Dimmer, Grid, Loader } from "semantic-ui-react";
+import { Button, Dimmer, Grid, Loader } from "semantic-ui-react";
 import Lists from "../components/Lists";
 import { GET_LISTS_WITH_MOVIE_INFO } from "../gql/lists";
 import "./User.scss";
+import Chat from "../components/Chat/Chat";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRobot } from "@fortawesome/free-solid-svg-icons";
 
 export default function User() {
   const { username } = useParams();
+  const [showChat, setShowChat] = useState(false);
 
   const { data, loading, startPolling, stopPolling } = useQuery(GET_FAVORITES, {
     variables: { username },
@@ -56,6 +59,33 @@ export default function User() {
 
   return (
     <div className="user-page">
+      <div
+        style={{
+          position: "absolute",
+          right: -100,
+          bottom: 10,
+          zIndex: 2000,
+          width: 500,
+        }}
+      >
+        {showChat ? (
+          <div style={{ marginRight: 125 }}>
+            <Chat onClose={() => setShowChat(false)} />
+          </div>
+        ) : (
+          <Button
+            circular
+            icon
+            size="big"
+            onClick={() => setShowChat(true)}
+            color="purple"
+          >
+            <FontAwesomeIcon icon={faRobot} />
+
+            <p style={{ marginLeft: 5 }}>Pide una recomendación</p>
+          </Button>
+        )}
+      </div>
       <Profile
         username={username}
         totalFavorites={getFavorites.length}

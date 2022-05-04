@@ -5,25 +5,24 @@ import { map } from "lodash";
 import FeedMovie from "../FeedMovie/FeedMovie";
 import "./MyCarousel.scss";
 
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 4,
-    slidesToSlide: 3, // optional, default to 1.
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 600 },
-    items: 3,
-    slidesToSlide: 1, // optional, default to 1.
-  },
-  mobile: {
-    breakpoint: { max: 600, min: 0 },
-    items: 1,
-    slidesToSlide: 1, // optional, default to 1.
-  },
-};
-
-const MyCarousel = ({ items, openMovie, setIsMoving }) => {
+const MyCarousel = ({ items, openMovie, setIsMoving, isInBot }) => {
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: isInBot ? 1 : 4,
+      slidesToSlide: isInBot ? 1 : 3, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 600 },
+      items: isInBot ? 1 : 3,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 600, min: 0 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+  };
   return (
     <Carousel
       className="carousel"
@@ -39,7 +38,12 @@ const MyCarousel = ({ items, openMovie, setIsMoving }) => {
       shouldResetAutoplay={false}
     >
       {map(items, (movie) => (
-        <FeedMovie key={movie.id} movie={movie} openMovie={openMovie} />
+        <FeedMovie
+          key={movie.id}
+          movie={movie}
+          openMovie={openMovie}
+          isInBot={isInBot}
+        />
       ))}
     </Carousel>
   );
